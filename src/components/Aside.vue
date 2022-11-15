@@ -2,11 +2,18 @@
   <!--<aside v-show="store.menuOpened">-->
   <aside v-bind:class="{opened: store.menuOpened}">
     <!--<p>Aside begin</p>-->
-    <ul>
-      <li v-for="item in store.menuItems" :key="item">
-        <button class="menu-list item" v-bind:class="item">{{item}}</button>
-      </li>
-    </ul>
+    <router-link v-for="(item, index) in store.foods" :key="item.name"
+                 :to="{name: 'foodSection', hash:'#'+store.foods[index].hash}">
+      {{item.name}}
+    </router-link>
+    <!--<a v-for="(item, index) in store.foods" :key="item.name"
+    v-bind:href="store.foods[index].name">
+      {{item.name}}
+    </a>-->
+    <!--<a v-for="(item, index) in store.foods" :key="item.name"
+       v-bind:href="store.foods[index].name">
+      {{item.name}}
+    </a>-->
     <!--<p>Aside end</p>-->
   </aside>
 </template>
@@ -37,6 +44,9 @@ export default {
   }
 
   .opened {
-    display: block;
+    display: flex;
+    flex-direction: column;
+    position: sticky;
+    top: 4em;
   }
 </style>

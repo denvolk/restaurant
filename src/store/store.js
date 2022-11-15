@@ -6,7 +6,8 @@ export const store = reactive({
     //menuItems: ref([])
     menuItems: [],
     foods: [],
-    pageLang: 'eng',
+    //pageLanguages: [],
+    pageLang: 'ru',
     foodItem: false,
     fullPageItem: false,
     shownItem: {

@@ -1,27 +1,41 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import App from "@/App";
+import Aside from "@/components/Aside";
+import FoodSection from "@/components/FoodSection";
+import Menu from "@/components/Menu";
 
 Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/',
-    name: 'home',
-    component: HomeView
-  },
-  {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
+    path: '/:id',
+    component: Menu,
+    name: 'foodSection',
+    props: true
   }
 ]
 
 const router = new VueRouter({
-  routes
+  mode: 'history',
+  routes,
+  scrollBehavior: function (to, from, savedPosition)  {
+    if (to.hash)  {
+      return  {
+        selector: to.hash,
+        //behavior: 'smooth',
+      }
+    }
+  },
+  /*scrollBehavior: function (to, from, savedPosition)  {
+    if (to.hash)  {
+      return {selector: to.hash}
+    }
+    else  {
+      return {x: 0, y: 0}
+    }
+  },*/
 })
 
 export default router

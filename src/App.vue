@@ -11,6 +11,7 @@
 </template>
 
 <script>
+import {store} from "@/store/store"
 import Vue, {ref} from 'vue';
 import Header from "@/components/Header";
 import Main from "@/components/Main";
@@ -26,6 +27,7 @@ export default {
   data: function (){
     return{
       x: '',
+      store,
     }
   },
 
@@ -33,9 +35,19 @@ export default {
     //this.$nextTick(this.setLangOnLoad, this.changeRestName);
     //this.setLangOnLoad();
     //this.$nextTick(this.changeRestName);
+    //this.getLanguages();
   },
 
   methods:  {
+    /*getLanguages()  {
+      fetch(`http://localhost:3000/lang`)
+          .then((response) => response.json())
+          .then((lang) => {lang.forEach((item, index) => {
+            store.pageLanguages.push(item.name)});
+          })
+      console.log("store.pageLanguages: "+store.pageLanguages);
+    },*/
+
     /*setLangOnLoad() {
       document.location.hash = "#eng";
       console.log('setLangOnLoad');

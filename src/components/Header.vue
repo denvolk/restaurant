@@ -1,7 +1,7 @@
 <template>
   <header>
     <nav class="menu">
-      <button v-on:click="toggleMenu(); fillMenu();" class="menu-btn" :disabled="!menu.length">{{menuName}}</button>
+      <button v-on:click="toggleMenu(); fillMenu();" class="menu-btn" :disabled="!store.foods.length">{{menuName}}</button>
       <!--<ul v-show="store.menuOpened" class="menu-list">
         <li v-for="item in store.menuItems" :key="item">
           <button class="menu-list item" v-bind:class="item">{{item}}</button>
@@ -15,8 +15,16 @@
       {{restName}}
     </section>
     <section class="lang-select">
-      <button class="lang-select btn-ru" v-on:click="getRestName('ru'); toggleLangBtn();" :disabled="!engBtnDisabled">RU</button> |
-      <button class="lang-select btn-eng" v-on:click="getRestName('eng'); toggleLangBtn();" :disabled="engBtnDisabled">ENG</button>
+      <!--<button
+          v-for="item in store.pageLanguages" :key="item"
+          class="lang-select"
+          v-bind:class="item"
+          v-on:click="translatePage(item); toggleLangBtn();"
+          :disabled="isDisabled(item)"
+        {{item}} |>
+      </button>-->
+      <button class="lang-select ru" v-on:click="translatePage('ru'); toggleLangBtn();" :disabled="!engBtnDisabled">RU</button> |
+      <button class="lang-select eng" v-on:click="translatePage('eng'); toggleLangBtn();" :disabled="engBtnDisabled">ENG</button>
     </section>
     <section class="cart">
       <img id="cart-logo" src="" alt="cart.png">
@@ -36,17 +44,31 @@ export default {
       store,
       //pageLang: 'eng',
       logoPath: './assets/logo.svg',
-      menuName: 'Menu',
-      restName: 'RESTAURANT',
+      menuName: 'Меню',
+      restName: 'РЕСТОРАН',
       //menuOpened: false,
       menuBtnDisabled: true,
-      engBtnDisabled: true,
+      disabledBtns: {},
+      engBtnDisabled: false,
       menu: [],
       //menuItems:  ref([]),
   }
   },
 
+  mounted() {
+    this.getMenu();
+  },
+
   methods:  {
+
+    translatePage() {
+      console.log('translatePage');
+    },
+
+    /*isDisabled(btn) {
+      if (btn === 'eng')
+    },*/
+
     setLogo(lang) {
       console.log('lang=', lang);
       this.logoPath = `../assets/restImg${lang}.png`;
@@ -60,33 +82,33 @@ export default {
       this.engBtnDisabled = !this.engBtnDisabled;
     },
 
-    async getRestMenu() {
-      if (!this.menu.length)
-        fetch('http://localhost:3000/menu')
+    async getMenu() {
+      if (!this.store.foods.length) {
+        fetch(`http://localhost:3000/foods${store.pageLang}`)
             .then((response) => response.json())
-            .then((menu) => {
-              console.log(menu);
-              for (let i = 0; i < menu.length; i++) {
-                this.menu.push(menu[i].name);
+            .then((foods) => {
+              console.log(foods);
+              for (let i = 0; i < foods.length; i++) {
+                store.foods.push(foods[i]);
               }
-              console.log(this.menu);
-              /*for (let i = 0; i < menu.length; i++)
-                console.log(this.menu[i].ru);*/
+              console.log(store.foods);
             });
+      }
+      ;
     },
 
     fillMenu()  {
-      if (!store.menuItems.length) {
+      if (!store.foods.length) {
         if (store.pageLang === 'eng')  {
-          for (let i = 0; i < this.menu.length; i++)  {
-            store.menuItems.push(this.menu[i].eng);
+          for (let i = 0; i < store.foods.length; i++)  {
+            store.menuItems.push(store.foods[i].name);
           }
 
           console.log('fillMenuEng'); return;
         }
 
         for (let i = 0; i < this.menu.length; i++)  {
-          store.menuItems.push(this.menu[i].ru);
+          store.menuItems.push(store.foods[i].name);
         }
         console.log('fillMenuRu');
       }
@@ -127,10 +149,6 @@ export default {
       //: this.restName = lang});
     },
   },
-
-  mounted() {
-    this.getRestMenu();
-  }
 }
 </script>
 

@@ -4,23 +4,22 @@
     <!--<div v-for="(item, index) in store.foods" :key="item" :idx="index" class="food-item container">
       <FoodItem></FoodItem>
     </div>-->
-    <FoodItem v-for="item in store.foods" :key="item.id"
-              :id="item.id" :name="item.name" :desc="item.desc" :amount="item.amount" :weight="item.weight" :img="item.img"
-              class="container">
-              <!--v-on:food-item-opened="showFullItem">-->
-      <!--<FoodItem></FoodItem>-->
-    </FoodItem>
+    <FoodSection v-for="item in store.foods" :key="item.id"
+                v-bind:id="item.id" :name="item.name" :hash="item.hash" :items="item.data">
+    </FoodSection>
+
     <!--<p>Menu end</p>-->
   </div>
 </template>
 
 <script>
 import {store} from "@/store/store";
+import FoodSection from "@/components/FoodSection";
 import FoodItem from "@/components/FoodItem";
 
 export default {
   name: "Menu",
-  components: {FoodItem},
+  components: {FoodSection, FoodItem},
 
   data: function () {
     return  {
@@ -31,10 +30,14 @@ export default {
     }
   },
 
+  mounted() {
+    //this.getMenu();
+  },
+
   methods: {
-    async getMenu(lang) {
-      if (!this.store.foods.length)
-        fetch("http://localhost:3000/foodseng")
+    /*async getMenu(lang) {
+      if (!this.store.foods.length) {
+        fetch(`http://localhost:3000/foods${store.pageLang}`)
             .then((response) => response.json())
             .then((foods) => {
               console.log(foods);
@@ -43,7 +46,8 @@ export default {
               }
               console.log(store.foods);
             });
-    },
+      };
+    }*/
 
     /*setImgPath()  {
       console.log(store.foods[this.itemId]);
@@ -62,10 +66,6 @@ export default {
       this.setImgPath();
     },*/
   },
-
-  mounted() {
-    this.getMenu(store.pageLang);
-  }
 }
 </script>
 
@@ -84,10 +84,11 @@ export default {
 
   .menu-main.opened  {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     flex-wrap: wrap;
     justify-content: space-evenly;
     border: 1px solid blue;
+    width: 100%;
   }
 
   .container{

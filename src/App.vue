@@ -59,11 +59,11 @@ export default {
       //console.log(response);
       //console.log(data['name']);
       //return (await fetch(`http://localhost:3000/lang/1`)).json();
-      fetch(`http://localhost:3000/lang?name=${lang}`)
+      fetch(`https://my-json-server.typicode.com/denvolk/restaurant-db/lang?name=${lang}`)
           .then((response) => response.json())
           .then((lang) => {this.restName = lang[0].restname;})
-          //.then((lang) => {lang[0].name === 'ru' ? this.restName = lang[0].restname
-          //: this.restName = lang});
+      //.then((lang) => {lang[0].name === 'ru' ? this.restName = lang[0].restname
+      //: this.restName = lang});
     },
 
     changeRestName(lang)  {
@@ -109,6 +109,7 @@ export default {
 <style lang="less">
 html  {
   overflow-y: scroll;
+  background-color: #c2c2c2;
 }
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;

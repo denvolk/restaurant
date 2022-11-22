@@ -17,8 +17,8 @@ export default {
 </script>
 
 <style scoped>
-  main{
-    display: flex;
-    flex-direction: row;
-  }
+main{
+  display: flex;
+  flex-direction: row;
+}
 </style>

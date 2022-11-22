@@ -1,7 +1,7 @@
 <template>
   <header>
     <nav class="menu">
-      <button v-on:click="toggleMenu(); fillMenu();" class="menu-btn" :disabled="!store.foods.length">{{menuName}}</button>
+      <button v-on:click="toggleMenu(); " class="menu-btn" :disabled="!store.foods.length">{{menuName}}</button>
       <!--<ul v-show="store.menuOpened" class="menu-list">
         <li v-for="item in store.menuItems" :key="item">
           <button class="menu-list item" v-bind:class="item">{{item}}</button>
@@ -23,8 +23,20 @@
           :disabled="isDisabled(item)"
         {{item}} |>
       </button>-->
-      <button class="lang-select ru" v-on:click="translatePage('ru'); toggleLangBtn();" :disabled="!engBtnDisabled">RU</button> |
-      <button class="lang-select eng" v-on:click="translatePage('eng'); toggleLangBtn();" :disabled="engBtnDisabled">ENG</button>
+      <template v-for="item in store.pageLanguages">
+        <button :key="item.id"
+                class="lang-select" v-bind:class="item.name"
+                v-on:click="translatePage(item.name);">
+          {{item.name.toString().toUpperCase()}}
+        </button>
+        <hr v-if="store.pageLanguages.length > 1 && item.id !== store.pageLanguages.length">
+      </template>
+      <!--<button v-for="item in store.pageLanguages" :key="item.id">
+        {{item.name.toString().toUpperCase()}}
+        <hr v-if="store.pageLanguages.length > 1 && item.id !== store.pageLanguages.length">
+      </button>-->
+      <!--<button class="lang-select ru" v-on:click="translatePage('ru'); toggleLangBtn();" :disabled="!engBtnDisabled">RU</button> |
+      <button class="lang-select eng" v-on:click="translatePage('eng'); toggleLangBtn();" :disabled="engBtnDisabled">ENG</button>-->
     </section>
     <section class="cart">
       <img id="cart-logo" src="" alt="cart.png">
@@ -48,21 +60,53 @@ export default {
       restName: 'РЕСТОРАН',
       //menuOpened: false,
       menuBtnDisabled: true,
-      disabledBtns: {},
-      engBtnDisabled: false,
+      //disabledBtns: [],
+      //engBtnDisabled: false,
       menu: [],
       //menuItems:  ref([]),
-  }
+    }
   },
 
   mounted() {
-    this.getMenu();
+    this.getLanguages();
+    this.getMenuSections();
   },
 
   methods:  {
 
-    translatePage() {
+    async getLanguages()  {
+      fetch(`https://my-json-server.typicode.com/denvolk/restaurant-db/langs`)
+          .then((response) => response.json())
+          .then((langs) =>  {
+            //console.log(langs);
+            langs.forEach(lang => {
+              store.pageLanguages.push(lang);
+            });
+          });
+    },
+
+    async translatePage(lang) {
       console.log('translatePage');
+      if (lang === store.pageLang)  return;
+
+      store.pageLang = lang;
+
+      //store.foods = [];
+      //await this.getMenuSections();
+      await this.repaintMenu();
+    },
+
+    async repaintMenu()  {
+      fetch(`https://my-json-server.typicode.com/denvolk/restaurant-db/foods${store.pageLang}`)
+          .then((response) => response.json())
+          .then((foods) => {
+            console.log(foods);
+            for (let i = 0; i < foods.length; i++) {
+              //store.foods[i] = (foods[i]);
+              this.$set(store.foods, i, foods[i]);
+            }
+            console.log(store.foods);
+          });
     },
 
     /*isDisabled(btn) {
@@ -78,13 +122,23 @@ export default {
       this.store.menuOpened = !this.store.menuOpened;
     },
 
-    toggleLangBtn() {
-      this.engBtnDisabled = !this.engBtnDisabled;
-    },
+    /*toggleLangBtn(lang) {
+      console.log(lang);
+      let temp = store.pageLanguages.findIndex(obj => {
+        return obj.name === lang;
+      });
+      console.log(temp);
+      this.disabledBtns.forEach((item, index, arr) => {
+        console.log(arr[index]);
+        arr[index] = false;
+      });
+      console.log(this.disabledBtns);
+    },*/
 
-    async getMenu() {
+    async getMenuSections() {
       if (!this.store.foods.length) {
-        fetch(`http://localhost:3000/foods${store.pageLang}`)
+        //fetch(`https://my-json-server.typicode.com/denvolk/restaurant-db/foods${store.pageLang}`)
+        fetch(`https://my-json-server.typicode.com/denvolk/restaurant-db/foods${store.pageLang}`)
             .then((response) => response.json())
             .then((foods) => {
               console.log(foods);
@@ -114,7 +168,7 @@ export default {
       }
     },
 
-    repaintMenu() {
+    /*repaintMenu() {
       if (store.pageLang === 'eng')  {
         for (let i = 0; i < this.menu.length; i++)  {
           //store.menuItems[i] = this.menu[i].eng;
@@ -127,101 +181,105 @@ export default {
           this.$set(store.menuItems, i, this.menu[i].ru);
         }
       }
-    },
+    },*/
 
-    async getRestName(lang) {
+    /*async getRestName(lang) {
       //const response = await fetch(`http://localhost:3000/lang?name=${lang}`)
       //this.restName = await response;
       //console.log(response);
       //console.log(data['name']);
       //return (await fetch(`http://localhost:3000/lang/1`)).json();
-      fetch(`http://localhost:3000/lang?name=${lang}`)
+      fetch(`https://my-json-server.typicode.com/denvolk/restaurant-db/lang?name=${lang}`)
           .then((response) => response.json())
           .then((lang) => {this.restName = lang[0].restname;
-                          this.menuName = lang[0].menu;
-                          store.pageLang = lang[0].name;
-                          this.repaintMenu();
-                          /*this.menuItems = [];*/
-                          /*if (this.menuOpened)  this.toggleMenu()*/});
+            this.menuName = lang[0].menu;
+            store.pageLang = lang[0].name;
+            this.repaintMenu();
 
       //this.setLogo(lang);
       //.then((lang) => {lang[0].name === 'ru' ? this.restName = lang[0].restname
       //: this.restName = lang});
-    },
+    },*/
   },
 }
 </script>
 
 <style scoped lang="less">
-img {
-  max-height: 2em;
-  vertical-align: middle;
-}
-button  {
-  appearance: none;
-  background: none;
-  border: none;
-}
+  img {
+    max-height: 2em;
+    vertical-align: middle;
+  }
+  button  {
+    appearance: none;
+    background: none;
+    border: none;
+    align-items: center;
+  }
 
-header  {
-  position: sticky;
-  top: 0.5em;
-  display: flex;
-  margin: 0 auto 0 auto;
-  justify-content: space-between;
-  border: 1px red solid;
-  line-height: 3em;
-}
+  header  {
+    position: sticky;
+    top: 0.5em;
+    display: flex;
+    margin: 0 auto 0 auto;
+    justify-content: space-between;
+    border: 1px red solid;
+    line-height: 3em;
+  }
 
-nav {
-  /*position: absolute;
-  left: 0.5em;
-  margin-right: 1em;*/
-}
+  .lang-select  {
+    display: flex;
+    flex-direction: row;
+  }
 
-nav ul{
-  padding: 0;
-  margin: 0;
-  /*left: 1em;
-  top: 2em;*/
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  position: absolute;
-}
+  nav {
+    /*position: absolute;
+    left: 0.5em;
+    margin-right: 1em;*/
+  }
 
-nav {
-a {
-  font-weight: bold;
-  color: #2c3e50;
+  nav ul{
+    padding: 0;
+    margin: 0;
+    /*left: 1em;
+    top: 2em;*/
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+  }
 
-&.router-link-exact-active {
-   color: #42b983;
- }
-}
-}
+  nav {
+    a {
+      font-weight: bold;
+      color: #2c3e50;
 
-.menu-btn {
-  width: 3em;
-}
+      &.router-link-exact-active {
+        color: #42b983;
+      }
+    }
+  }
 
-.menu-list  {
-  border: 1px solid red;
-}
+  .menu-btn {
+    width: 3em;
+  }
 
-.rest-name  {
-  width: 40em;
-}
+  .menu-list  {
+    border: 1px solid red;
+  }
 
-.hidden {
-  display: none;
-}
+  .rest-name  {
+    width: 40em;
+  }
 
-.disabled {
-  color: red;
-}
+  .hidden {
+    display: none;
+  }
 
-.item {
-  border: 1px solid blue;
-}
+  .disabled {
+    color: red;
+  }
+
+  .item {
+    border: 1px solid blue;
+  }
 </style>

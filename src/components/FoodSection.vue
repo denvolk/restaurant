@@ -6,7 +6,7 @@
     </div>
     <div class="food-items">
       <FoodItem v-for="item in items" :key="items.id"
-                :id="item.name" :name="item.name" :desc="item.desc" :amount="item.amount" :weight="item.weight" :img="item.img">
+                :id="item.name" :name="item.name" :desc="item.desc" :amount="item.amount" :weight="item.weight" :img="item.img" :ftype="hash">
 
       </FoodItem>
     </div>
@@ -45,15 +45,16 @@ export default {
 </script>
 
 <style scoped>
-  .food-section  {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-  }
+.food-section  {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  font-size: 1.5rem;
+}
 
-  .food-items {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-  }
+.food-items {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
 </style>

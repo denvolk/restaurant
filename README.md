@@ -1,5 +1,7 @@
 # restaurant
 
+https://denvolk.github.io/restaurant/
+
 ## Project setup
 ```
 npm install

@@ -1,18 +1,13 @@
 <template>
   <div class="item" v-bind:class="{opened: store.fullPageItem}" v-on:click="closeItem">
     <div class="item-data">
-      <!--<img v-bind:src="store.shownItem.img" v-bind:alt="store.shownItem.img" v-on:click="closeFullPageItem">-->
-      <div v-show="imgIsLoaded">
+      <div class="img-container">
         <img v-bind:src="store.shownItem.img" v-bind:alt="store.shownItem.img" v-on:load="setImgLoadState">
       </div>
-      <div v-show="!imgIsLoaded" class="lds-hourglass"></div>
       <div class="text">
-        <p class="name"><span>{{store.shownItem.name}}</span></p>
-        <p class="description"><span>{{store.shownItem.desc}}</span></p>
-        <!--<p class="weight"><span>{{store.shownItem.weight}}g</span></p>-->
-        <p class="weight"><span>{{store.shownItem.weight}}</span></p>
-        <!--<p v-if="store.shownItem.ftype !== 'drinks'" class="weight"><span>{{store.shownItem.weight}} {{weightType.other}}</span></p>
-        <p v-else class="weight"><span>{{store.shownItem.weight}} {{weightType.drinks}}</span></p>-->
+        <div class="name">{{store.shownItem.name}}</div>
+        <div class="description">{{store.shownItem.desc}}</div>
+        <div class="weight">{{store.shownItem.weight}}</div>
       </div>
     </div>
   </div>
@@ -33,27 +28,20 @@ export default {
         name: '',
         desc: '',
         weight: '',
-        amount: '',
       },
-      weightType: {
-        drinks: 'мл',
-        other: 'гр'
-      },
-      imgIsLoaded: false,
+      imgLoaded: false,
     }
   },
 
   methods:  {
-    /*closeFullPageItem() {
-      store.fullPageItem = store.foodItem = false;
-    },*/
 
     setImgLoadState() {
-      this.imgIsLoaded = true;
+      this.imgLoaded = true;
     },
 
     closeItem() {
-      store.fullPageItem = store.foodItem = this.imgIsLoaded = false;
+      store.fullPageItem = store.foodItem = this.imgLoaded = store.itemOpened = false;
+      //document.getElementsByTagName('html')[0].classList.remove("noscroll");
     },
   },
 }
@@ -65,35 +53,75 @@ export default {
 }
 
 .opened {
-  /*display: block;*/
-  display: block;
+  /*display: flex;
+  justify-content: center;
+  flex-direction: column;
   position: fixed;
   transform: translate(-50%, -50%);
-  left: 50%;
+  left: 48.5%;
   top: 50%;
   z-index: 99;
-
-  background-color: #c2c2c2;
+  overflow: hidden;
+  background-color: #fff;
   border: 3px solid black;
   border-radius: 1em;
-
-  /*width: 80%;
-  height: 80%;*/
   margin: 2em;
-  flex: 1;
+  padding: 2em;
+  min-width: 30em;*/
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10000;
+  padding: 20px 0;
+  background: rgba(0,0,0,.4);
+  transition: opacity .5s ease,visibility .5s ease;
 }
 
 .item-data  {
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  flex-direction: row;
+  /* justify-content: space-between; */
+  background-color: #fff;
+  border: 3px solid black;
+  border-radius: 1em;
+  /*padding: 0 1em;*/
+  padding-right: 1em;
+  width: 46em;
+  height: 36em;
+}
+
+.name, .description, .weight  {
+  text-align: left;
 }
 
 img {
-  max-width: 35em;
-  margin: 2em auto;
-  border: 2px solid black;
-  border-radius: 1em;
+  width: 23em;
+}
+
+.img-container  {
+  width: 23em;
+  height: 36em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  box-shadow: 5px 0 20px rgb(117 115 111 / 20%);
+}
+
+.text {
+  width: 23em;
+  /* height: 36em; */
+  display: flex;
+  justify-content: space-evenly;
+  /* align-items: center; */
+  flex-direction: column;
+  padding-left: 1em;
+  font-size: 1.25rem;
 }
 
 .lds-hourglass {

@@ -1,45 +1,40 @@
 <template>
-  <div class="food-item" v-on:click="!store.foodItem ? openItem() : null">
-    <div v-show="imgIsLoaded">
+  <!--<div class="food-item" v-on:mouseenter="isMouseOver = !isMouseOver" v-on:mouseleave="isMouseOver = !isMouseOver">-->
+  <div class="food-item">
+    <div class="img-container" v-show="imgIsLoaded" v-on:mouseenter="imgIsHovered = !imgIsHovered" v-on:mouseleave="imgIsHovered = !imgIsHovered" v-on:click="!store.foodItem ? openItem() : null">
       <img v-bind:src="logoPath" v-bind:alt="name" v-on:load="setImgLoadState">
+      <div class="imgBtn" v-show="imgIsHovered">Полное описание</div>
     </div>
     <div v-show="!imgIsLoaded" class="lds-hourglass"></div>
     <div class="name">{{name}}</div>
-    <!--<p class="desc"><span>{{desc}}</span></p>-->
-    <!--<p class="amount"><span>{{amount}}</span></p>-->
+    <!--<div v-show="isMouseOver" class="desc">{{desc}}</div>-->
     <div class="weight">{{weight}}</div>
-    <!--<p v-if="ftype !== 'drinks'" class="weight"><span>{{weight}} {{weightType.other}}</span></p>
-    <p v-else class="weight"><span>{{weight}} {{weightType.drinks}}</span></p>-->
-    <!--<p v-if="ftype !== 'drinks'" class="weight"><span>{{weight}}g</span></p>-->
-    <!--<p v-else class="weight"><span>{{weight}}ml</span></p>-->
   </div>
 </template>
-<!--v-bind:class="{opened: opened}"-->
+
 <script>
 import {store} from "@/store/store";
 
 export default {
   name: "FoodItem",
 
-  props: ["id", "name", "desc", "amount", "weight", "img", "ftype"],
+  props: ["id", "name", "desc", "weight", "img"],
 
   data: function () {
     return  {
       logoPath: '',
       opened: false,
       store,
-      weightType: {
-        drinks: 'мл',
-        other: 'гр'
-      },
       imgIsLoaded: false,
+      //isMouseOver: false,
+      imgIsHovered: false,
     }
   },
 
   methods:  {
     imgPath()  {
-      this.logoPath = `https://raw.githubusercontent.com/denvolk/restaurant-test/gh-pages/assets/foods/${this.img}.webp`  //gh-pages
-      //this.logoPath =  `../assets/foods/${this.img}.webp`;  localhost
+      this.logoPath = `https://raw.githubusercontent.com/denvolk/restaurant/gh-pages/assets/foods/${this.img}.webp` //gh-pages
+      //this.logoPath =  `../assets/foods/${this.img}.webp`;  //localhost
     },
 
     setImgLoadState() {
@@ -47,40 +42,22 @@ export default {
     },
 
     openItem()  {
-      /*this.opened = !this.opened;
-      console.log(this.opened);
-
-      const response = {
-        opened: this.opened,
-        id: this.id,
-      };*/
-      /*this.$emit("food-item-opened", response);*/
       store.foodItem = true;
 
       store.shownItem.id = this.id;
       store.shownItem.name = this.name;
       store.shownItem.desc = this.desc;
       store.shownItem.weight = this.weight;
-      store.shownItem.amount = this.amount;
       store.shownItem.img = this.logoPath;
-      store.shownItem.ftype = this.ftype;
 
       store.fullPageItem = true;
+      store.itemOpened = true;
+      //document.getElementsByTagName('html')[0].classList.add("noscroll");
+      //document.getElementsByTagName('html')[0].style.scroll = "no";
+      //document.getElementsByTagName('html')[0].style['padding-right'] = "1em";
       console.log('openItem ' + store.shownItem.id + ' ' + store.foodItem);
     },
   },
-
-  /*setWeightType() {
-    if (store.pageLang === 'ru') {
-      this.weightType.drinks = 'мл';
-      this.weightType.other = 'гр';
-      return;
-    }
-    if (store.pageLang === 'eng') {
-      this.weightType.drinks = 'ml';
-      this.weightType.other = 'g';
-    }
-  },*/
 
   mounted() {
     this.imgPath();
@@ -93,27 +70,55 @@ export default {
   display: flex;
   flex-direction: column;
   margin: 1em;
-  border: 2px solid black;
-  /*border: 1px solid red;*/
+  border: 2px solid #000;
   border-radius: 1em;
-  background-color: #ffffff;
-  /*max-width: 10em;*/
+  background-color: #fff;
   width: 8em;
   min-height: 14em;
   padding: 0.5em;
   justify-content: space-between;
+  box-shadow: 8px 8px 10px hsl(40deg 3% 45% / 20%);
+}
+
+.food-item:active {
+  box-shadow: 2px 2px 10px hsl(40deg 3% 45% / 20%);
+}
+
+/*.food-item:hover  {
+  min-height: 16em;
+}*/
+
+.img-container  {
+  position: relative;
+  cursor: pointer;
 }
 
 img {
   max-width: 8em;
   border-radius: 1em;
   border: 1px solid black;
+  /*position: relative;*/
+}
+.imgBtn {
+  position: absolute;
+  background-color: rgba(66, 185, 131, 0.7);
+  bottom: 2.5em;
+  z-index: 99;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  width: 8.1em;
+  cursor: pointer;
 }
 p {
   max-width: 8em;
 }
 .weight {
   justify-content: flex-end;
+}
+
+.desc {
+  font-size: 0.5em;
 }
 /*.opened {
   position: absolute;

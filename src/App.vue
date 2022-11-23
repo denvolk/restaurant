@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" v-bind:class="{itemOpened: store.itemOpened}">
     <Header></Header>
     <Main></Main>
     <!--<button v-on:click="getapi">Click</button>-->
@@ -109,7 +109,18 @@ export default {
 <style lang="less">
 html  {
   overflow-y: scroll;
-  background-color: #c2c2c2;
+  background-color: #F5F4F2;
+  margin: 0;
+  padding: 0;
+}
+/*.noscroll {
+  position: fixed;
+  overflow-y: scroll;
+  width: 100%;
+}*/
+body  {
+  margin: 0;
+  padding: 0;
 }
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -117,5 +128,9 @@ html  {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+}
+
+.itemOpened {
+  overflow-y: hidden;
 }
 </style>

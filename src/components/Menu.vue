@@ -1,15 +1,8 @@
 <template>
-  <!--<div class="menu-main" v-bind:class="{opened: !store.foodItem}">-->
-  <div class="menu-main">
-    <!--<p>Menu begin</p>-->
-    <!--<div v-for="(item, index) in store.foods" :key="item" :idx="index" class="food-item container">
-      <FoodItem></FoodItem>
-    </div>-->
+  <div class="menu-main" v-bind:class="{menuOpened: store.menuOpened}">
     <FoodSection v-for="item in store.foods" :key="item.id"
                  v-bind:id="item.id" :name="item.name" :hash="item.hash" :items="item.data">
     </FoodSection>
-
-    <!--<p>Menu end</p>-->
   </div>
 </template>
 
@@ -32,40 +25,11 @@ export default {
   },
 
   mounted() {
-    //this.getMenu();
+
   },
 
   methods: {
-    /*async getMenu(lang) {
-      if (!this.store.foods.length) {
-        fetch(`http://localhost:3000/foods${store.pageLang}`)
-            .then((response) => response.json())
-            .then((foods) => {
-              console.log(foods);
-              for (let i = 0; i < foods.length; i++) {
-                store.foods.push(foods[i]);
-              }
-              console.log(store.foods);
-            });
-      };
-    }*/
 
-    /*setImgPath()  {
-      console.log(store.foods[this.itemId]);
-      const tempData = store.foods[this.itemId];
-      this.openedItemData.imgPath =  `../assets/foods/${tempData.img}.png`;
-      this.openedItemData.id = tempData.id;
-      this.openedItemData.name = tempData.name;
-      this.openedItemData.desc = tempData.desc;
-      this.openedItemData.weight = tempData.weight;
-      this.openedItemData.amount = tempData.amount;
-    },*/
-
-    /*showFullItem($data) {
-      this.opened = $data.opened;
-      this.itemId = $data.id - 1;
-      this.setImgPath();
-    },*/
   },
 }
 </script>
@@ -88,8 +52,13 @@ export default {
   flex-direction: column;
   flex-wrap: wrap;
   justify-content: space-evenly;
-  border: 1px solid blue;
+  /*border: 1px solid blue;*/
   width: 100%;
+  margin-top: 3em;
+}
+
+.menuOpened {
+  margin-left: 18em;
 }
 
 .container{

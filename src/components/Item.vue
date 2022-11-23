@@ -1,6 +1,7 @@
 <template>
-  <div class="item" v-bind:class="{opened: store.fullPageItem}" v-on:click="closeItem">
-    <div class="item-data">
+  <div class="item" v-bind:class="{opened: store.fullPageItem, 'closing-disabled': closingIsDisabled}"
+       v-on:click="closeItem">
+    <div class="item-data" v-on:mouseenter="closingIsDisabled = !closingIsDisabled" v-on:mouseleave="closingIsDisabled = !closingIsDisabled">
       <div class="img-container">
         <img v-bind:src="store.shownItem.img" v-bind:alt="store.shownItem.img" v-on:load="setImgLoadState">
       </div>
@@ -30,6 +31,7 @@ export default {
         weight: '',
       },
       imgLoaded: false,
+      closingIsDisabled: false,
     }
   },
 
@@ -40,6 +42,9 @@ export default {
     },
 
     closeItem() {
+      if (this.closingIsDisabled)
+        return;
+
       store.fullPageItem = store.foodItem = this.imgLoaded = store.itemOpened = false;
       //document.getElementsByTagName('html')[0].classList.remove("noscroll");
     },
@@ -92,7 +97,7 @@ export default {
   /*padding: 0 1em;*/
   padding-right: 1em;
   width: 46em;
-  height: 36em;
+  height: 20em;
 }
 
 .name, .description, .weight  {
@@ -101,12 +106,13 @@ export default {
 
 img {
   width: 23em;
+  border-radius: 1em 0 0 1em;
 }
 
 .img-container  {
   width: 23em;
-  height: 36em;
-  display: flex;
+  height: 20em;
+  /* display: flex; */
   justify-content: center;
   align-items: center;
   flex-direction: column;

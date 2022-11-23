@@ -55,10 +55,11 @@ export default {
   /*border: 1px solid blue;*/
   width: 100%;
   margin-top: 3em;
+  margin-left: 1em;
 }
 
 .menuOpened {
-  margin-left: 18em;
+  margin-left: 15.5em;
 }
 
 .container{

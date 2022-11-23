@@ -52,7 +52,7 @@ ul  {
   display: block;
   position: fixed;
   top: 4em;
-  min-width: 15em;
+  min-width: 10em;
   height: 89.6vh;
   /* margin-top: 1em; */
   box-shadow: 0 8px 20px hsl(40deg 3% 45% / 20%);

@@ -36,6 +36,7 @@ export default {
     //this.setLangOnLoad();
     //this.$nextTick(this.changeRestName);
     //this.getLanguages();
+    //document.querySelector("meta[name=viewport]").setAttribute('content', 'width=device-width, initial-scale='+(1/window.devicePixelRatio)+', maximum-scale=1.0, user-scalable=0');
   },
 
   methods:  {
@@ -122,15 +123,47 @@ body  {
   margin: 0;
   padding: 0;
 }
+
+@media (-webkit-device-pixel-ratio: 1.25) {
+  * {
+    zoom: 1;
+  }
+  html {
+    /*background-color: red;*/
+  }
+}
+
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  /*font-family: Avenir, Helvetica, Arial, sans-serif;*/
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  font-family: Rubik, sans-serif;
 }
 
 .itemOpened {
   overflow-y: hidden;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 0.5em;
+  border: 1px black solid;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
 </style>

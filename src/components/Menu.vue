@@ -1,7 +1,7 @@
 <template>
-  <div class="menu-main" v-bind:class="{menuOpened: store.menuOpened}">
+  <div class="menu-main" v-bind:class="{menuOpened: store.menuOpened && !store.cartOpened, cartOpened: store.cartOpened && !store.menuOpened, bothOpened: store.menuOpened && store.cartOpened}">
     <FoodSection v-for="item in store.foods" :key="item.id"
-                 v-bind:id="item.id" :name="item.name" :hash="item.hash" :items="item.data">
+                 v-bind:id="item.id" :name="item.name" :hash="item.hash" :items="item.data" :sectionId="item.id">
     </FoodSection>
   </div>
 </template>
@@ -54,12 +54,36 @@ export default {
   justify-content: space-evenly;
   /*border: 1px solid blue;*/
   width: 100%;
-  margin-top: 3em;
+  /*margin-top: 3em;*/
   margin-left: 1em;
 }
 
 .menuOpened {
-  margin-left: 15.5em;
+  margin-left: 3em;
+}
+
+@media (-webkit-device-pixel-ratio: 1.25) {
+  .menuOpened {
+    margin-left: 2.5em;
+  }
+}
+
+.cartOpened {
+  /*margin-left: 2.75em;*/
+  margin-left: 1em;
+  /*margin-right: 17em;*/
+}
+
+.bothOpened {
+  /*margin-left: 16em;
+  margin-right: 17.5em;*/
+  margin-left: 3.25em;
+}
+
+@media (-webkit-device-pixel-ratio: 1.25) {
+  .bothOpened {
+    margin-left: 2em;
+  }
 }
 
 .container{

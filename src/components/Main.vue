@@ -3,6 +3,7 @@
     <Aside></Aside>
     <Item></Item>
     <Menu></Menu>
+    <Cart></Cart>
   </main>
 </template>
 
@@ -10,9 +11,10 @@
 import Aside from "@/components/Aside";
 import Menu from "@/components/Menu";
 import Item from "@/components/Item";
+import Cart from "@/components/Cart";
 export default {
   name: "Main",
-  components: {Menu, Aside, Item}
+  components: {Cart, Menu, Aside, Item}
 }
 </script>
 

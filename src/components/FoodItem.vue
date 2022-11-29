@@ -1,16 +1,25 @@
 <template>
   <!--<div class="food-item" v-on:mouseenter="isMouseOver = !isMouseOver" v-on:mouseleave="isMouseOver = !isMouseOver">-->
-  <div class="food-item">
-    <div class="img-container" v-show="imgIsLoaded" v-on:mouseenter="imgIsHovered = !imgIsHovered" v-on:mouseleave="imgIsHovered = !imgIsHovered" v-on:click="!store.foodItem ? openItem() : null">
+  <div class="food-item" v-on:mouseenter="costIsHovered = true" v-on:mouseleave="costIsHovered = false">
+    <div class="img-container"
+         v-show="imgIsLoaded"
+         v-on:mouseenter="imgIsHovered = !imgIsHovered" v-on:mouseleave="imgIsHovered = !imgIsHovered"
+         v-on:click="!store.foodItem ? openItem() : null"
+    >
       <img v-bind:src="logoPath" v-bind:alt="name" v-on:load="setImgLoadState">
       <div class="imgBtn" v-show="imgIsHovered"><span>Состав</span></div>
     </div>
     <div v-show="!imgIsLoaded" class="lds-hourglass"></div>
     <div class="name">{{name}}</div>
     <!--<div v-show="isMouseOver" class="desc">{{desc}}</div>-->
-    <div class="add-btn-container" v-on:mouseenter="costIsHovered = !costIsHovered" v-on:mouseleave="costIsHovered = !costIsHovered">
+    <div class="add-btn-container">
       <div class="weight">{{weight}}</div>
-      <button v-bind:class="{'cost-is-hovered': costIsHovered}" class="add-to-cart">+</button>
+      <div class="add-to-cart" v-bind:class="{'cost-is-hovered': costIsHovered}" v-on:click="addToCart">
+        <span class="material-symbols-outlined add">
+        add
+      </span>
+      </div>
+      <!--<button v-bind:class="{'cost-is-hovered': costIsHovered}" class="add-to-cart" v-on:click="addToCart">+</button>-->
     </div>
   </div>
 </template>
@@ -21,7 +30,7 @@ import {store} from "@/store/store";
 export default {
   name: "FoodItem",
 
-  props: ["id", "name", "desc", "weight", "img"],
+  props: ["id", "name", "desc", "weight", "img", "foodId", "sectionId"],
 
   data: function () {
     return  {
@@ -61,6 +70,104 @@ export default {
       //document.getElementsByTagName('html')[0].style['padding-right'] = "1em";
       console.log('openItem ' + store.shownItem.id + ' ' + store.foodItem);
     },
+
+    /*addItemToCart() {
+
+      if (store.cartItems.length) {
+
+        let itemIndex = store.cartItems.findIndex(x => x.foodName === this.name);
+        //console.log("itemIndex: " + itemIndex);
+
+        if (typeof itemIndex === "undefined") {
+          alert('itemIndex undefined');
+          return;
+        }
+
+        if (itemIndex !== -1) {
+          store.cartItems[itemIndex]["amount"]++;
+          return;
+        }
+      }
+
+      let item = {};
+      item["foodId"] = this.foodId;
+      item["sectionId"] = this.sectionId;
+      item["foodName"] = this.name;
+      item["amount"] = 1;
+      store.cartItems.push(item);
+    },*/
+
+    addToCart() {
+      console.log("addToCart");
+
+      if (store.cartItems.length) {
+        console.log("cartItems.length > 0");
+        let cartIndex = store.cartItems.findIndex(x => x.name === this.name);
+        console.log("cartIndex1: " + cartIndex);
+
+        if (cartIndex !== -1) {
+          store.cartItems[cartIndex].amount++;
+          console.log(store.cartItems[cartIndex] + " amount: " + store.cartItems[cartIndex].amount);
+          return;
+        }
+      }
+
+      let index = -1;
+      let sectionIndex = -1;
+
+      for (let iter = 0; iter < store.foods.length; iter++) {
+        index = store.foods[iter].data.findIndex(x => x.name === this.name);
+        sectionIndex = iter;
+
+        if (index !== -1)
+          break;
+      }
+
+      if (index === -1)
+        return;
+
+      sectionIndex++;
+      console.log("sectionId: " + sectionIndex + ", foodId: " + index);
+      let item = {};
+      item["name"] = this.name;
+      item["sectionId"] = sectionIndex;
+      item["foodId"] = index;
+      item["amount"] = 1;
+      item["cost"] = this.weight.slice(0, -2);
+      console.log("item: " + item.name + " " + item.sectionId + " " + item.foodId + " " + item.amount);
+      store.cartItems.push(item);
+    },
+
+    addItemToCart() {
+      console.log("addItemToCart");
+      if (store.cartItems.length) {
+        let cartIndex = store.cartItems.findIndex(x => x.name === this.name);
+
+        if (cartIndex !== -1) {
+          store.cartItems[cartIndex].amount++;
+          return;
+        }
+      }
+
+      let index = -1;
+      let sectionIndex = -1;
+      for (let iter = 0; iter < store.foods.length; iter++) {
+        index = store.foods[iter].data.findIndex(x => x.name === this.name);
+        sectionIndex = iter;
+        if (index !== -1)
+          break;
+      }
+
+      if (index === -1)
+        return;
+
+      sectionIndex++;
+      let item = {};
+      item["name"] = this.name;
+      item["sectionId"] = sectionIndex;
+      item["foodId"] = index;
+      item["amount"] = 1;
+    },
   },
 
   mounted() {
@@ -73,6 +180,7 @@ export default {
 .food-item  {
   display: flex;
   flex-direction: column;
+  /*flex-grow: 1;*/
   position: relative;
   margin: 1em;
   border: 2px solid #000;
@@ -83,6 +191,12 @@ export default {
   padding: 0.5em;
   justify-content: space-between;
   box-shadow: 0 0 20px hsl(40deg 3% 45% / 20%);
+}
+
+@media (-webkit-device-pixel-ratio: 1.25) {
+  .food-item {
+    margin: 1em 0.75em 1em 0.5em;
+  }
 }
 
 /*.food-item:active {
@@ -96,6 +210,7 @@ export default {
 .img-container  {
   position: relative;
   cursor: pointer;
+  /*padding: 0.25em 0.25em 0 0.25em;*/
 }
 
 img {
@@ -130,6 +245,7 @@ p {
   display: none;
   opacity: 0;
   transition: all 2s ease-in;
+  cursor: pointer;
 }
 
 .cost-is-hovered  {
@@ -160,6 +276,25 @@ p {
   margin: 20em auto 20em auto;
   vertical-align: center;
 }*/
+
+.material-symbols-outlined {
+  align-self: center;
+  user-select: none;
+  cursor: pointer;
+  font-variation-settings: 'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 48
+}
+
+.add {
+  font-variation-settings: 'FILL' 0,
+  'wght' 700,
+  'GRAD' 200,
+  'opsz' 48;
+  text-align: center;
+  line-height: 2.25em;
+}
 
 .lds-hourglass {
   display: inline-block;

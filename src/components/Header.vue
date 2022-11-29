@@ -12,15 +12,18 @@
     <section class="lang-select">
       <template v-for="item in store.pageLanguages">
         <button :key="item.id"
-                class="lang-select" v-bind:class="item.name"
+                class="lang-select-btn" v-bind:class="item.name"
                 v-on:click="translatePage(item.name);">
           {{item.name.toString().toUpperCase()}}
         </button>
-        <hr v-if="store.pageLanguages.length > 1 && item.id !== store.pageLanguages.length">
+        <!--<hr v-if="store.pageLanguages.length > 1 && item.id !== store.pageLanguages.length">-->
       </template>
     </section>
     <section class="cart">
-      <img id="cart-logo" src="" alt="cart.png">
+      <span class="material-symbols-outlined" v-on:click="toggleCart">
+        shopping_cart
+      </span>
+      <!--<img id="cart-logo" src="" alt="cart.png">-->
     </section>
   </header>
 </template>
@@ -37,7 +40,7 @@ export default {
       store,
       logoPath: './assets/logo.svg',
       menuName: 'Меню',
-      restName: 'РЕСТОРАН',
+      restName: 'Пиццерия',
       menuBtnDisabled: true,
       menu: [],
     }
@@ -96,6 +99,10 @@ export default {
       this.store.menuOpened = !this.store.menuOpened;
     },
 
+    toggleCart()  {
+      this.store.cartOpened = !this.store.cartOpened;
+    },
+
     async getMenuSections() {
       if (!this.store.foods.length) {
         //fetch(`http://localhost:3000/foods${store.pageLang}`)
@@ -136,6 +143,15 @@ export default {
 </script>
 
 <style scoped lang="less">
+
+  .material-symbols-outlined {
+    font-variation-settings:
+        'FILL' 0,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 48
+  }
+
   img {
     max-height: 2em;
     vertical-align: middle;
@@ -145,10 +161,11 @@ export default {
     background: none;
     border: none;
     align-items: center;
+    font-family: Rubik, sans-serif;
   }
 
   header  {
-    position: fixed;
+    position: sticky;
     z-index: 2;
     top: 0em;
     display: flex;
@@ -170,11 +187,15 @@ export default {
   .lang-select  {
     display: flex;
     flex-direction: row;
+    margin-left: 69.5em;
+  }
+
+  .lang-select-btn  {
     cursor: pointer;
   }
 
   nav {
-    margin-left: 1.5em;
+    margin-left: 2em;
     /*position: absolute;
     left: 0.5em;
     margin-right: 1em;*/
@@ -206,6 +227,7 @@ export default {
     width: 3em;
     /*margin: 0 0 0 1.5em;*/
     font-size: 1rem;
+    cursor: pointer;
   }
 
   .menu-list  {
@@ -213,7 +235,15 @@ export default {
   }
 
   .rest-name  {
-    width: 40em;
+    position: fixed;
+    top: 1em;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: 700;
+    font-size: 2rem;
+    /*font-family: Caveat, sans-serif;
+    font-family: Lobster, sans-serif;*/
+    font-family: Pacifico, sans-serif;
   }
 
   .hidden {
@@ -229,6 +259,14 @@ export default {
   }
 
   .cart {
-    padding-right: 1.5em;
+    margin-right: 2em;
+    line-height: 4.75;
+    user-select: none;
+    cursor: pointer;
+  }
+
+  hr {
+    margin: 0.75em;
+    border-width: 2px;
   }
 </style>

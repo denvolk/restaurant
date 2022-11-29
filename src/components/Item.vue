@@ -10,6 +10,12 @@
         <div class="description">{{store.shownItem.desc}}</div>
         <div class="weight">{{store.shownItem.weight}}</div>
       </div>
+      <div class="close-btn">
+        <span class="material-symbols-outlined close" v-on:mouseenter="closingIsDisabled = !closingIsDisabled" v-on:mouseleave="closingIsDisabled = !closingIsDisabled"
+              v-on:click="closeItem">
+          close
+        </span>
+      </div>
     </div>
   </div>
 </template>
@@ -92,12 +98,27 @@ export default {
   flex-direction: row;
   /* justify-content: space-between; */
   background-color: #fff;
-  border: 3px solid black;
+  /*border: 3px solid black;*/
   border-radius: 1em;
   /*padding: 0 1em;*/
   padding-right: 1em;
   width: 46em;
   height: 20em;
+}
+
+@media (-webkit-device-pixel-ratio: 1.25) {
+  .item-data {
+    display: flex;
+    flex-direction: row;
+    /* justify-content: space-between; */
+    background-color: #fff;
+    /*border: 2px solid black;*/
+    border-radius: 0.9em;
+    /* padding: 0 1em; */
+    padding-right: 1em;
+    width: 46em;
+    height: 19.6em;
+  }
 }
 
 .name, .description, .weight  {
@@ -106,7 +127,7 @@ export default {
 
 img {
   width: 23em;
-  border-radius: 1em 0 0 1em;
+  border-radius: 0.75em 0 0 0.75em;
 }
 
 .img-container  {
@@ -128,6 +149,19 @@ img {
   flex-direction: column;
   padding-left: 1em;
   font-size: 1.25rem;
+}
+
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0,
+  'wght' 700,
+  'GRAD' 200,
+  'opsz' 48
+}
+
+.close {
+  user-select: none;
+  cursor: pointer;
+  margin-top: 0.75em;
 }
 
 .lds-hourglass {

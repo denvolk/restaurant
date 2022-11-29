@@ -3,6 +3,9 @@ import {reactive, ref} from 'vue'
 
 export const store = reactive({
     menuOpened: false,
+    cartOpened: false,
+    /*cartItems: [{"name": "BBQ Big", "amount": 2},{"name": "Ham and mushrooms Small", "amount": 1},{"name": "Soup Tom Yum with seafood", "amount": 10}],*/
+    cartItems: [],
     menuItems: [],
     foods: ref([]),
     pageLanguages: [],

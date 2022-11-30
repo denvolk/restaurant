@@ -54,8 +54,8 @@ export default {
   justify-content: space-evenly;
   /*border: 1px solid blue;*/
   width: 100%;
-  /*margin-top: 3em;*/
-  margin-left: 3em;
+  margin-top: 4em;
+  margin-left: 17.75em;
 }
 
 @media (-webkit-device-pixel-ratio: 1.25) {
@@ -65,12 +65,13 @@ export default {
 }
 
 .menuOpened {
-  margin-left: 4.75em;
+  margin-left: 17.75em;
 }
 
 @media (-webkit-device-pixel-ratio: 1.25) {
   .menuOpened {
-    margin-left: 2.5em;
+    /*margin-left: 2.5em;*/
+    margin-left: 15.5em;
   }
 }
 
@@ -89,12 +90,16 @@ export default {
 .bothOpened {
   /*margin-left: 16em;
   margin-right: 17.5em;*/
-  margin-left: 4.25em;
+  /*margin-left: 4.25em;*/
+  margin-left: 17.25em;
+  margin-right: 21.25em;
 }
 
 @media (-webkit-device-pixel-ratio: 1.25) {
   .bothOpened {
-    margin-left: 1.25em;
+    /*margin-left: 1.25em;*/
+    margin-left: 14.5em;
+    margin-right: 18.5em;
   }
 }
 

@@ -53,13 +53,16 @@ ul  {
   margin-top: 1em;
   box-shadow: 0 8px 20px hsl(40deg 3% 45% / 20%);*/
   display: block;
-  position: sticky;
-  top: 4em;
+  /*position: sticky;*/
+  position: fixed;
+  /*top: 4em;*/
+  top: 0;
+  margin: 4em 0 0 0;
   min-width: 10em;
   /*height: 91vh;*/
   /* margin-top: 1em; */
   box-shadow: 0 8px 20px hsl(40deg 3% 45% / 20%);
-  height: calc(100vh - 88px);
+  height: calc(100vh - 80px);
   background-color: rgba(255, 255, 255, 0.8);
 }
 

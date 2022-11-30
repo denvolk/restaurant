@@ -52,7 +52,7 @@ export default {
         return;
 
       store.fullPageItem = store.foodItem = this.imgLoaded = store.itemOpened = false;
-      document.getElementsByTagName('html')[0].classList.remove("noscroll");
+      //document.getElementsByTagName('html')[0].classList.remove("noscroll");
     },
   },
 }

@@ -119,7 +119,7 @@ html  {
   padding: 0;
 }
 .noscroll {
-  position: fixed;
+  /*position: fixed;*/
   overflow-y: scroll;
   width: 100%;
 }

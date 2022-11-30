@@ -76,7 +76,10 @@ export default {
     },*/
 
     deleteFromCart()  {
-      let index = store.cartItems.findIndex(x => x.name === this.name);
+      //let index = store.cartItems.findIndex(x => x.name === this.name);
+      let tempFoodId = this.foodId;
+      tempFoodId--;
+      let index = store.cartItems.findIndex(x => x.sectionId === this.sectionId && x.foodId === tempFoodId);
 
       store.cartItems.splice(index, 1);
     },
@@ -103,7 +106,7 @@ export default {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  margin: 0.5em 0.25em 0 0.25em;
+  margin: 0.5em 0.25em 0 0;
   text-align: left;
   color: #000;
   padding: 0.25em 0 0.25em 0.25em;

@@ -117,18 +117,28 @@ export default {
   /*overflow-x: hidden;*/
 }
 
-.opened {
-  /*overflow-y: hidden;*/
-  /*display: block;*/
+/*.opened {
   display: flex;
   flex-direction: column;
   position: sticky;
   top: 4em;
   width: 23em;
-  /*max-width: 16em;
-  min-width: 16em;*/
-  /*height: 92vh;*/
   height: calc(100vh - 82px);
+  box-shadow: 0 8px 20px hsl(40deg 3% 45% / 20%);
+  right: 0;
+  background-color: rgba(255, 255, 255, 0.8);
+}*/
+
+.opened {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0;
+  width: 16.25em;
+  /*padding: 4em 0 0 0;*/
+  margin: 4em 0 0 0;
+  height: 100vh;
+  height: calc(100vh - 80px);
   box-shadow: 0 8px 20px hsl(40deg 3% 45% / 20%);
   right: 0;
   background-color: rgba(255, 255, 255, 0.8);
@@ -176,8 +186,8 @@ button {
 .empty-cart-btn {
   user-select: none;
   cursor: pointer;
-  width: 15em;
-  margin-left: 0.25em;
+  width: 15.25em;
+  /*margin-left: 0.25em;*/
   margin-top: 0.25em;
   border-radius: 0.25em;
   padding: 0.25em 0;

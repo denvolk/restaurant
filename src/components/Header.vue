@@ -4,7 +4,7 @@
       <!--<button v-on:click="toggleMenu(); " class="menu-btn" :disabled="!store.foods.length">{{menuName}}</button>-->
       <!--<div v-on:click="toggleMenu" class="menu-btn">{{menuName}}</div>-->
       <!--<div class="menu-btn">{{menuName}}</div>-->
-      <img src="/assets/pizza.png" alt="pizza logo">
+      <img src="https://raw.githubusercontent.com/denvolk/restaurant/gh-pages/assets/pizza.png" alt="pizza logo">
     </nav>
     <!--<section class="logo">
       <img v-bind:src="logoPath" alt="logo.png">
@@ -211,7 +211,8 @@ export default {
   }
 
   header  {
-    position: sticky;
+    /*position: sticky;*/
+    position: fixed;
     z-index: 2;
     top: 0em;
     display: flex;
@@ -322,7 +323,7 @@ export default {
     top: 1em;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-weight: 700;
+    font-weight: 400;
     font-size: 2rem;
     /*font-family: Caveat, sans-serif;
     font-family: Lobster, sans-serif;*/

@@ -7,7 +7,10 @@
          v-on:click="!store.foodItem ? openItem() : null"
     >
       <img v-bind:src="logoPath" v-bind:alt="name" v-on:load="setImgLoadState">
-      <div class="imgBtn" v-show="imgIsHovered"><span>Состав</span></div>
+      <span class="material-symbols-rounded imgBtn" v-show="imgIsHovered">
+        expand_content
+      </span>
+      <!--<div class="imgBtn" v-show="imgIsHovered"><span>Состав</span></div>-->
     </div>
     <div v-show="!imgIsLoaded" class="lds-hourglass"></div>
     <div class="name">{{name}}</div>
@@ -48,7 +51,10 @@ export default {
 
   computed: {
     amount() {
-      let index = store.cartItems.findIndex(x => x.name === this.name);
+      //let index = store.cartItems.findIndex(x => x.name === this.name);
+      let tempFoodId = this.foodId;
+      tempFoodId--;
+      let index = store.cartItems.findIndex(x => x.sectionId === this.sectionId && x.foodId === tempFoodId)
       if (index === -1)
         return;
 
@@ -77,7 +83,7 @@ export default {
 
       store.fullPageItem = true;
       store.itemOpened = true;
-      document.getElementsByTagName('html')[0].classList.add("noscroll");
+      //document.getElementsByTagName('html')[0].classList.add("noscroll");
       //document.getElementsByTagName('html')[0].style.scroll = "no";
       //document.getElementsByTagName('html')[0].style['padding-right'] = "1em";
       console.log('openItem ' + store.shownItem.id + ' ' + store.foodItem);
@@ -114,7 +120,10 @@ export default {
 
       if (store.cartItems.length) {
         console.log("cartItems.length > 0");
-        let cartIndex = store.cartItems.findIndex(x => x.name === this.name);
+        //let cartIndex = store.cartItems.findIndex(x => x.name === this.name);
+        let tempFoodId = this.foodId;
+        tempFoodId--;
+        let cartIndex = store.cartItems.findIndex(x => x.sectionId === this.sectionId && x.foodId === tempFoodId);
         console.log("cartIndex1: " + cartIndex);
 
         if (cartIndex !== -1) {
@@ -127,17 +136,27 @@ export default {
       let index = -1;
       let sectionIndex = -1;
 
-      for (let iter = 0; iter < store.foods.length; iter++) {
-        index = store.foods[iter].data.findIndex(x => x.name === this.name);
+      /*for (let iter = 0; iter < store.foods.length; iter++) {
+        //index = store.foods[iter].data.findIndex(x => x.name === this.name);
+        let tempFoodId1 = this.foodId;
+        //index = store.foods[iter].data.findIndex(x => x.sectionId === this.sectionId && x.foodId === tempFoodId1);
+        index = store.foods[iter].data.findIndex(x => x.id === tempFoodId1);
         sectionIndex = iter;
 
         if (index !== -1)
           break;
-      }
+      }*/
+
+      let tempFoodId1 = this.foodId;
+      let tempSectionId = this.sectionId;
+      tempSectionId--;
+      index = store.foods[tempSectionId].data.findIndex(x => x.id === tempFoodId1);
 
       if (index === -1)
         return;
 
+      //sectionIndex++;
+      sectionIndex = tempSectionId;
       sectionIndex++;
       console.log("sectionId: " + sectionIndex + ", foodId: " + index);
       let item = {};
@@ -195,7 +214,7 @@ export default {
   /*flex-grow: 1;*/
   position: relative;
   margin: 1em 0.8em 1em 0.8em;
-  border: 2px solid rgba(0, 0, 0, 0.3);
+  border: 2px solid rgba(0, 0, 0, 0.35);
   border-radius: 1em;
   background-color: #fff;
   width: 8em;
@@ -234,7 +253,7 @@ img {
 }
 
 .imgBtn {
-  position: absolute;
+  /*position: absolute;
   background-color: rgba(255, 255, 255, 0.7);
   bottom: 3.25em;
   z-index: 99;
@@ -242,8 +261,35 @@ img {
   -moz-user-select: none;
   user-select: none;
   width: 8.1em;
+  cursor: pointer;*/
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.7);
+  bottom: 3.2em;
+  right: 0;
+  z-index: 99;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  width: 8.1em;
   cursor: pointer;
+  height: 1.2em;
+  line-height: 1.2em;
 }
+
+.material-symbols-rounded.imgBtn {
+  font-variation-settings: 'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 20
+}
+
+.material-symbols-rounded.imgBtn:hover {
+  font-variation-settings: 'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 48
+}
+
 p {
   max-width: 8em;
 }

@@ -60,6 +60,7 @@ ul  {
   /* margin-top: 1em; */
   box-shadow: 0 8px 20px hsl(40deg 3% 45% / 20%);
   height: calc(100vh - 88px);
+  background-color: rgba(255, 255, 255, 0.8);
 }
 
 /*@media (-webkit-device-pixel-ratio: 1.25) {

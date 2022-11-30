@@ -55,11 +55,17 @@ export default {
   /*border: 1px solid blue;*/
   width: 100%;
   /*margin-top: 3em;*/
-  margin-left: 1em;
+  margin-left: 3em;
+}
+
+@media (-webkit-device-pixel-ratio: 1.25) {
+  .menu-main {
+    margin-left: 1em;
+  }
 }
 
 .menuOpened {
-  margin-left: 3em;
+  margin-left: 4.75em;
 }
 
 @media (-webkit-device-pixel-ratio: 1.25) {
@@ -74,15 +80,21 @@ export default {
   /*margin-right: 17em;*/
 }
 
+@media (-webkit-device-pixel-ratio: 1.25) {
+  .cartOpened {
+    margin-left: 7em;
+  }
+}
+
 .bothOpened {
   /*margin-left: 16em;
   margin-right: 17.5em;*/
-  margin-left: 3.25em;
+  margin-left: 4.25em;
 }
 
 @media (-webkit-device-pixel-ratio: 1.25) {
   .bothOpened {
-    margin-left: 2em;
+    margin-left: 1.25em;
   }
 }
 

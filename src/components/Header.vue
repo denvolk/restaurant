@@ -1,7 +1,10 @@
 <template>
   <header>
     <nav class="menu">
-      <button v-on:click="toggleMenu(); " class="menu-btn" :disabled="!store.foods.length">{{menuName}}</button>
+      <!--<button v-on:click="toggleMenu(); " class="menu-btn" :disabled="!store.foods.length">{{menuName}}</button>-->
+      <!--<div v-on:click="toggleMenu" class="menu-btn">{{menuName}}</div>-->
+      <!--<div class="menu-btn">{{menuName}}</div>-->
+      <img src="/assets/pizza.png" alt="pizza logo">
     </nav>
     <!--<section class="logo">
       <img v-bind:src="logoPath" alt="logo.png">
@@ -9,22 +12,48 @@
     <section class="rest-name">
       {{restName}}
     </section>
-    <section class="lang-select">
-      <template v-for="item in store.pageLanguages">
-        <button :key="item.id"
-                class="lang-select-btn" v-bind:class="item.name"
-                v-on:click="translatePage(item.name);">
-          {{item.name.toString().toUpperCase()}}
-        </button>
-        <!--<hr v-if="store.pageLanguages.length > 1 && item.id !== store.pageLanguages.length">-->
-      </template>
-    </section>
-    <section class="cart">
-      <span class="material-symbols-outlined" v-on:click="toggleCart">
+    <div class="right">
+      <div class="full-cost">
+        {{fullCost}} ₽
+      </div>
+      <section class="cart" v-on:click="toggleCart">
+      <span class="material-symbols-outlined">
         shopping_cart
       </span>
-      <!--<img id="cart-logo" src="" alt="cart.png">-->
-    </section>
+        <div class="cart-counter" v-show="store.cartItems.length">
+          {{store.cartItems.length}}
+        </div>
+        <!--<img id="cart-logo" src="" alt="cart.png">-->
+      </section>
+      <section class="lang-select" v-if="store.pageLanguages.length > 1">
+        <div class="curr-lang">
+          {{store.pageLang.toUpperCase()}}
+        </div>
+        <div class="languages">
+          <span class="material-symbols-rounded" v-on:click="showLanguages = !showLanguages" v-if="showLanguages">
+            expand_less
+          </span>
+          <span class="material-symbols-rounded" v-on:click="showLanguages = !showLanguages" v-else>
+            expand_more
+          </span>
+          <div class="lang-select-btn" v-show="showLanguages" v-for="item in filteredPageLanguages" :key="item.id" v-bind:class="item.name" v-on:click="translatePage(item.name);">
+            {{item.name.toString().toUpperCase()}}
+          </div>
+        </div>
+        <!--<template v-for="item in store.pageLanguages">
+          <button :key="item.id"
+                  class="lang-select-btn" v-bind:class="item.name"
+                  v-on:click="translatePage(item.name);">
+            {{item.name.toString().toUpperCase()}}
+          </button>
+        </template>-->
+      </section>
+      <section class="lang-select" v-else>
+        <div class="curr-lang">
+          {{store.pageLang.toUpperCase()}}
+        </div>
+      </section>
+    </div>
   </header>
 </template>
 
@@ -43,12 +72,29 @@ export default {
       restName: 'Пиццерия',
       menuBtnDisabled: true,
       menu: [],
+      showLanguages: false,
     }
   },
 
   mounted() {
     this.getLanguages();
     this.getMenuSections();
+  },
+
+  computed: {
+
+    fullCost() {
+      let fCost = 0;
+      store.cartItems.forEach(item => {
+        fCost += item.cost * item.amount;
+      });
+
+      return fCost;
+    },
+
+    filteredPageLanguages() {
+      return store.pageLanguages.filter(x => x.name !== store.pageLang);
+    },
   },
 
   methods:  {
@@ -184,18 +230,55 @@ export default {
     right: 0;
   }
 
-  .lang-select  {
+  .right {
     display: flex;
     flex-direction: row;
-    margin-left: 69.5em;
+
+  }
+
+  .lang-select  {
+    position: relative;
+    /*display: flex;*/
+    /*flex-direction: row;*/
+    /*margin-left: 69.5em;*/
+    user-select: none;
+    margin-right: 1.5em;
+    text-align: center;
+    width: 2em;
+    line-height: 3.5em;
   }
 
   .lang-select-btn  {
     cursor: pointer;
   }
 
+  .languages {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    user-select: none;
+    cursor: pointer;
+    width: 2em;
+    top: 2em;
+  }
+
+   /*.material-symbols-rounded {
+     font-variation-settings:
+         'FILL' 0,
+         'wght' 300,
+           'GRAD' -25,
+         'opsz' 20
+   }
+
+  .check {
+    position: absolute;
+    top: 1em;
+    left: 1em;
+  }*/
+
   nav {
-    margin-left: 2em;
+    margin-left: 2.25em;
+    user-select: none;
     /*position: absolute;
     left: 0.5em;
     margin-right: 1em;*/
@@ -225,7 +308,7 @@ export default {
 
   .menu-btn {
     width: 3em;
-    /*margin: 0 0 0 1.5em;*/
+    margin: 0 0 0 0.2em;
     font-size: 1rem;
     cursor: pointer;
   }
@@ -259,10 +342,26 @@ export default {
   }
 
   .cart {
-    margin-right: 2em;
+    position: relative;
+    margin-right: 3.75em;
     line-height: 4.75;
     user-select: none;
     cursor: pointer;
+  }
+
+  .cart-counter {
+    position: absolute;
+    top: 2.5em;
+    left: 1em;
+    width: 1.25em;
+    height: 1.25em;
+    text-align: center;
+    line-height: 1.34em;
+    background-color: rgba(50, 205, 50, 0.8);
+    border-radius: 50%;
+    font-size: 0.75rem;
+    padding: 0.25em;
+    color: black;
   }
 
   hr {

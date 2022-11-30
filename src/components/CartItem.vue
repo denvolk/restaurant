@@ -1,20 +1,25 @@
 <template>
   <div class="cart-item">
     <!--<div class="cart-item data" v-bind:class="{overflowed: store.cartItems.length > 9}">-->
-    <div class="cart-item data">
-      <div class="cart-item name">
-        {{store.foods[sectionId - 1].data[foodId].name}}
+    <!--<img v-bind:src="imgPath" v-bind:alt="store.foods[sectionId - 1].data[foodId].name">-->
+    <img v-bind:src="`https://raw.githubusercontent.com/denvolk/restaurant/gh-pages/assets/foods/${store.foods[this.sectionId - 1].data[this.foodId].img}.webp`"
+         v-bind:alt="store.foods[sectionId - 1].data[foodId].name">
+    <div class="data">
+      <div class="name">
+        {{ store.foods[sectionId - 1].data[foodId].name }}
       </div>
-      <div class="cart-item cost">
-        {{cost}} ₽
+      <div class="cost">
+        {{ cost }} ₽
       </div>
     </div>
-    <div class="cart-item amount">
+    <div class="amount">
       <span class="material-symbols-outlined add" v-on:click="$emit('inc-amount')">
         add
       </span>
       <!--<button class="inc-cart-item-btn" v-on:click="$emit('inc-amount')">+</button>-->
-      {{amount}}
+      <div class="amount-text">
+        {{amount}}
+      </div>
       <span class="material-symbols-outlined remove" v-on:click="$emit('dec-amount')">
         remove
       </span>
@@ -38,6 +43,7 @@ export default {
   data: function () {
     return  {
       store,
+      imgPath: '',
       /*amount: 1,*/
       /*amountOf: this.amount,*/
     }
@@ -52,6 +58,10 @@ export default {
   },
 
   methods:  {
+
+    setImgPath() {
+      this.imgPath = `https://raw.githubusercontent.com/denvolk/restaurant/gh-pages/assets/foods/${store.foods[this.sectionId - 1].data[this.foodId].img}.webp`
+    },
     /*incAmount() {
       return this.amountOf++;
     },
@@ -79,21 +89,27 @@ export default {
     decAmount: function ()  {
       return this.amount--;
     },*/
+  },
+
+  mounted() {
+    this.setImgPath();
   }
 }
 </script>
 
 <style scoped>
 .cart-item {
+  position: relative;
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
   margin: 0.5em 0.25em 0 0.25em;
   text-align: left;
   color: #000;
-  padding: 0.25em 0.25em 0.25em 0.25em;
+  padding: 0.25em 0 0.25em 0.25em;
   background-color: #c2c2c2;
   border-radius: 0.25em;
-  width: 14.5em;
+  width: 15em;
   /*box-shadow: 2px 2px 10px hsl(40deg 3% 45% / 20%);*/
 }
 
@@ -104,27 +120,49 @@ export default {
 .cart-item .data {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   /*justify-content: flex-end;*/
-  min-width: 10.75em;
+  /*min-width: 10.75em;*/
   font-size: 1rem;
   /*align-items: center;*/
   padding: 0;
-  margin: 0;
+  /*margin: 0;*/
   /*white-space: nowrap;*/
   overflow: hidden;
-  text-overflow: ellipsis;
+  /*text-overflow: ellipsis;*/
   text-align: left;
+  /*margin-left: 0.5em;*/
+}
+
+.cart-item img {
+  max-width: 5em;
+  border-radius: 0.25em;
+}
+
+.cart-item .text {
+  display: flex;
+  flex-direction: column;
 }
 
 .cart-item .name {
   padding: 0;
-  margin: 0;
+  /*margin-top: 0.25em;*/
   background: none;
   box-shadow: none;
+  width: 7em;
+  /*word-break: break-word;*/
+  font-size: 0.8rem;
+  display: -webkit-box;
+  overflow: hidden;
+  word-break: break-word;
+  text-overflow: ellipsis;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  max-height: 30px;
 }
 
 .cart-item .cost {
-  font-size: 0.75em;
+  font-size: 1em;
   align-self: flex-start;
   padding: 0;
   margin: 0;
@@ -136,12 +174,17 @@ export default {
 
 .cart-item .amount {
   display: flex;
-  flex-direction: column;
+  flex-direction: row-reverse;
   text-align: center;
   font-size: 1rem;
   padding: 0;
   margin: 0;
   user-select: none;
+}
+
+.amount-text {
+  align-self: center;
+  width: 1em;
 }
 
 button {
@@ -173,6 +216,19 @@ button {
 .remove {
   font-variation-settings: 'FILL' 0,
   'wght' 400,
+  'GRAD' 0,
+  'opsz' 20
+}
+
+.delete {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+.material-symbols-outlined.delete {
+  font-variation-settings: 'FILL' 0,
+  'wght' 300,
   'GRAD' 0,
   'opsz' 20
 }

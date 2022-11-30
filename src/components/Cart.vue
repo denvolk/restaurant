@@ -2,6 +2,9 @@
   <aside class="aside-cart" v-bind:class="{opened: store.cartOpened/*, overflowed: store.cartItems.length > 9*/}">
     <div class="aside-cart-list empty" v-if="!store.cartItems.length">Корзина пуста</div>
     <div class="aside-cart-list" v-else>
+      <div class="empty-cart-btn" v-on:click="clearCart">
+        Очистить корзину
+      </div>
       <!--<div class="full-cost">
         {{fullCost}} ₽
       </div>-->
@@ -63,7 +66,9 @@ export default {
   },
 
   methods:  {
-
+    clearCart() {
+      store.cartItems = [];
+    }
   },
 
   computed: {
@@ -108,7 +113,7 @@ export default {
 .aside-cart {
   display: none;
   height: 100%;
-  padding: 0.5em 0 0.5em 0.5em;
+  padding: 0.5em 0.5em 0.5em 0.5em;
   /*overflow-x: hidden;*/
 }
 
@@ -119,13 +124,20 @@ export default {
   flex-direction: column;
   position: sticky;
   top: 4em;
-  /*width: 22em;*/
-  max-width: 16em;
-  min-width: 16em;
+  width: 23em;
+  /*max-width: 16em;
+  min-width: 16em;*/
   /*height: 92vh;*/
   height: calc(100vh - 82px);
   box-shadow: 0 8px 20px hsl(40deg 3% 45% / 20%);
   right: 0;
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+@media (-webkit-device-pixel-ratio: 1.25) {
+  .opened {
+    max-width: 25em;
+  }
 }
 
 /*@media (-webkit-device-pixel-ratio: 1.25) {
@@ -143,7 +155,8 @@ export default {
   display: flex;
   flex-direction: column;
   /*font-size: 1.5rem;*/
-  overflow: auto;
+  /*overflow: auto;*/
+  overflow-y: scroll;
   flex-grow: 1;
 }
 
@@ -160,6 +173,20 @@ button {
   padding-top: 0.5em;
 }
 
+.empty-cart-btn {
+  user-select: none;
+  cursor: pointer;
+  width: 15em;
+  margin-left: 0.25em;
+  margin-top: 0.25em;
+  border-radius: 0.25em;
+  padding: 0.25em 0;
+}
+
+.empty-cart-btn:hover {
+  background-color: #c2c2c2;
+}
+
 .order-btn {
   display: flex;
   flex-direction: row;
@@ -171,6 +198,11 @@ button {
   padding: 0 0.5em;
   align-items: center;
   margin: 0.5em 0.25em 0 0.25em;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(194, 194, 194, 0.2);
+  border: none;
 }
 
 ::-webkit-scrollbar-thumb {

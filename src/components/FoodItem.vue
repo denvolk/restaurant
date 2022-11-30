@@ -13,6 +13,7 @@
     <div class="name">{{name}}</div>
     <!--<div v-show="isMouseOver" class="desc">{{desc}}</div>-->
     <div class="add-btn-container">
+      <div class="amount" v-show="amount > 0">{{amount}}</div>
       <div class="weight">{{weight}}</div>
       <div class="add-to-cart" v-bind:class="{'cost-is-hovered': costIsHovered}" v-on:click="addToCart">
         <span class="material-symbols-outlined add">
@@ -41,7 +42,18 @@ export default {
       //isMouseOver: false,
       imgIsHovered: false,
       costIsHovered: false,
+      /*amount: 0,*/
     }
+  },
+
+  computed: {
+    amount() {
+      let index = store.cartItems.findIndex(x => x.name === this.name);
+      if (index === -1)
+        return;
+
+      return store.cartItems[index].amount;
+    },
   },
 
   methods:  {
@@ -65,7 +77,7 @@ export default {
 
       store.fullPageItem = true;
       store.itemOpened = true;
-      //document.getElementsByTagName('html')[0].classList.add("noscroll");
+      document.getElementsByTagName('html')[0].classList.add("noscroll");
       //document.getElementsByTagName('html')[0].style.scroll = "no";
       //document.getElementsByTagName('html')[0].style['padding-right'] = "1em";
       console.log('openItem ' + store.shownItem.id + ' ' + store.foodItem);
@@ -182,12 +194,12 @@ export default {
   flex-direction: column;
   /*flex-grow: 1;*/
   position: relative;
-  margin: 1em;
-  border: 2px solid #000;
+  margin: 1em 0.8em 1em 0.8em;
+  border: 2px solid rgba(0, 0, 0, 0.3);
   border-radius: 1em;
   background-color: #fff;
   width: 8em;
-  min-height: 14em;
+  min-height: 13em;
   padding: 0.5em;
   justify-content: space-between;
   box-shadow: 0 0 20px hsl(40deg 3% 45% / 20%);
@@ -218,7 +230,9 @@ img {
   border-radius: 1em;
   /*border: 1px solid black;*/
   /*position: relative;*/
+  user-select: none;
 }
+
 .imgBtn {
   position: absolute;
   background-color: rgba(255, 255, 255, 0.7);
@@ -267,6 +281,12 @@ p {
   font-size: 0.75em;
 }
 
+@media (-webkit-device-pixel-ratio: 1.25) {
+  .cost-is-hovered {
+    left: 9.03em;
+  }
+}
+
 .desc {
   font-size: 0.5em;
 }
@@ -294,6 +314,27 @@ p {
   'opsz' 48;
   text-align: center;
   line-height: 2.25em;
+}
+
+.amount {
+  position: absolute;
+  background-color: #c2c2c2;
+  height: 3em;
+  width: 3em;
+  line-height: 3em;
+  bottom: 0;
+  /*left: 0;*/
+  right: 9em;
+  /*border-radius: 1em 0 1.2em 0;*/
+  border-radius: 0 1em 0 1.2em;
+  font-size: 0.75em;
+  user-select: none;
+}
+
+@media (-webkit-device-pixel-ratio: 1.25) {
+  .amount {
+    right: 9.01em;
+  }
 }
 
 .lds-hourglass {

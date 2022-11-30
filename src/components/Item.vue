@@ -52,7 +52,7 @@ export default {
         return;
 
       store.fullPageItem = store.foodItem = this.imgLoaded = store.itemOpened = false;
-      //document.getElementsByTagName('html')[0].classList.remove("noscroll");
+      document.getElementsByTagName('html')[0].classList.remove("noscroll");
     },
   },
 }
@@ -104,6 +104,7 @@ export default {
   padding-right: 1em;
   width: 46em;
   height: 20em;
+  box-shadow: 0 0 10px;
 }
 
 @media (-webkit-device-pixel-ratio: 1.25) {
@@ -125,9 +126,19 @@ export default {
   text-align: left;
 }
 
+.name {
+  font-size: 1.75rem;
+}
+
 img {
   width: 23em;
   border-radius: 0.75em 0 0 0.75em;
+}
+
+@media (-webkit-device-pixel-ratio: 1.25) {
+  img {
+    width: 22.5em;
+  }
 }
 
 .img-container  {

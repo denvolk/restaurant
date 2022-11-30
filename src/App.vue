@@ -32,6 +32,7 @@ export default {
   },
 
   mounted() {
+    this.setBodyImg();
     //this.$nextTick(this.setLangOnLoad, this.changeRestName);
     //this.setLangOnLoad();
     //this.$nextTick(this.changeRestName);
@@ -40,6 +41,9 @@ export default {
   },
 
   methods:  {
+    setBodyImg() {
+      document.getElementsByTagName('body')[0].classList.add('body_img', 'body');
+    },
     /*getLanguages()  {
       fetch(`http://localhost:3000/lang`)
           .then((response) => response.json())
@@ -110,18 +114,30 @@ export default {
 <style lang="less">
 html  {
   overflow-y: scroll;
-  background-color: #F5F4F2;
+  /*background-color: #F5F4F2;*/
   margin: 0;
   padding: 0;
 }
-/*.noscroll {
+.noscroll {
   position: fixed;
   overflow-y: scroll;
   width: 100%;
-}*/
+}
 body  {
   margin: 0;
   padding: 0;
+}
+
+.body {
+  background-attachment: fixed !important;
+}
+
+.body_img {
+  background: url("../public/assets/pizzabckgr.webp") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
 
 @media (-webkit-device-pixel-ratio: 1.25) {
@@ -149,7 +165,7 @@ body  {
 /* width */
 ::-webkit-scrollbar {
   width: 0.5em;
-  border: 1px black solid;
+  /*border: 1px black solid;*/
 }
 
 /* Track */

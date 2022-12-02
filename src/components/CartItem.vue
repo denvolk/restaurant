@@ -3,11 +3,15 @@
     <!--<div class="cart-item data" v-bind:class="{overflowed: store.cartItems.length > 9}">-->
     <!--<img v-bind:src="imgPath" v-bind:alt="store.foods[sectionId - 1].data[foodId].name">-->
     <img v-bind:src="`https://raw.githubusercontent.com/denvolk/restaurant/gh-pages/assets/foods/${store.foods[this.sectionId - 1].data[this.foodId].img}.webp`"
-         v-bind:alt="store.foods[sectionId - 1].data[foodId].name">
+         v-bind:alt="store.foods[sectionId - 1].data[foodId].name"
+         v-on:click="!store.foodItem ? openItem() : null">
     <div class="data">
       <div class="name">
         {{ store.foods[sectionId - 1].data[foodId].name }}
       </div>
+      <!--<span class="tooltip-text">
+          {{store.foods[sectionId - 1].data[foodId].name}}
+      </span>-->
       <div class="cost">
         {{ cost }} ₽
       </div>
@@ -61,6 +65,23 @@ export default {
 
     setImgPath() {
       this.imgPath = `https://raw.githubusercontent.com/denvolk/restaurant/gh-pages/assets/foods/${store.foods[this.sectionId - 1].data[this.foodId].img}.webp`
+    },
+
+    openItem() {
+      let tempFoodData = store.foods[this.sectionId - 1].data[this.foodId];
+
+      store.foodItem = true;
+
+      store.shownItem.id = tempFoodData.id;
+      store.shownItem.name = tempFoodData.name;
+      store.shownItem.desc = tempFoodData.desc;
+      store.shownItem.weight = tempFoodData.weight;
+      store.shownItem.img = this.imgPath;
+
+      store.fullPageItem = true;
+      store.itemOpened = true;
+
+      console.log('openItem ' + store.shownItem.id + ' ' + store.foodItem);
     },
     /*incAmount() {
       return this.amountOf++;
@@ -140,6 +161,7 @@ export default {
 .cart-item img {
   max-width: 5em;
   border-radius: 0.25em;
+  cursor: pointer;
 }
 
 .cart-item .text {
@@ -148,6 +170,7 @@ export default {
 }
 
 .cart-item .name {
+  position: relative;
   padding: 0;
   /*margin-top: 0.25em;*/
   background: none;
@@ -162,6 +185,41 @@ export default {
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
   max-height: 30px;
+}
+
+.tooltip-text {
+  /*display: none;*/
+  visibility: hidden;
+  opacity: 0;
+  /* width: 120px
+px
+; */
+  background-color: #fff;
+  color: #000;
+  text-align: center;
+  /* padding: 5px 0; */
+  padding: 0 2px 0 2px;
+  border-radius: 0.25em;
+  position: absolute;
+  z-index: 9999;
+  /* bottom: 0; */
+  top: 0.35em;
+  /* left: 15%; */
+  left: 7.25em;
+  /* bottom: 1em; */
+  /* margin-left: -60px; */
+  /* opacity: 0; */
+  overflow: auto;
+  max-width: 10em;
+  font-size: 0.75rem;
+  transition-delay: 0.25s;
+  transition-duration: 0.25s;
+  transition-property: opacity;
+}
+
+.data:hover .tooltip-text {
+  visibility: visible;
+  opacity: 0.7;
 }
 
 .cart-item .cost {

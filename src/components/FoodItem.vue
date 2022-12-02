@@ -116,6 +116,7 @@ export default {
     },*/
 
     addToCart() {
+
       console.log("addToCart");
 
       if (store.cartItems.length) {
@@ -129,6 +130,8 @@ export default {
         if (cartIndex !== -1) {
           store.cartItems[cartIndex].amount++;
           console.log(store.cartItems[cartIndex] + " amount: " + store.cartItems[cartIndex].amount);
+          let cookieData = {"id": "1", "user-name": "denvolk", "data": store.cartItems};
+          this.$cookies.set(store.cookieName, cookieData, 60);
           return;
         }
       }
@@ -167,6 +170,13 @@ export default {
       item["cost"] = this.weight.slice(0, -2);
       console.log("item: " + item.name + " " + item.sectionId + " " + item.foodId + " " + item.amount);
       store.cartItems.push(item);
+
+      /*if (!store.cookieExists) {
+        let cookieData = {"id": "1", "user-name": "denvolk", "data": store.cartItems};
+        this.$cookies.set(store.cookieName, cookieData, 60);
+      }*/
+      let cookieData = {"id": "1", "user-name": "denvolk", "data": store.cartItems};
+      this.$cookies.set(store.cookieName, cookieData, 60);
     },
 
     addItemToCart() {

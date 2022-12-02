@@ -15,6 +15,8 @@ import {store} from "@/store/store"
 import Vue, {ref} from 'vue';
 import Header from "@/components/Header";
 import Main from "@/components/Main";
+import VueCookies from 'vue-cookies';
+Vue.use(VueCookies);
 /*var data = {
   x: {},
   lang: '',
@@ -33,6 +35,7 @@ export default {
 
   mounted() {
     this.setBodyImg();
+    this.checkCookieExist();
     //this.$nextTick(this.setLangOnLoad, this.changeRestName);
     //this.setLangOnLoad();
     //this.$nextTick(this.changeRestName);
@@ -41,6 +44,32 @@ export default {
   },
 
   methods:  {
+
+    checkCookieExist() {
+      store.cookieExists = this.$cookies.isKey("denvolkpizza");
+      console.log(store.cookieExists);
+
+      if (store.cookieExists) {
+        this.getCookie();
+        /*store.cookie.data.forEach(item => {
+          store.cartItems.push(item);
+        });*/
+        for (let iter = 0; iter < store.cookie.length; iter++) {
+          store.cartItems.push(store.cookie.data[iter]);
+        }
+        console.log("store.cartItems" + store.cartItems);
+        //let tempCookieData = store.cookie.data;
+        //console.log("tempCookieData" + tempCookieData[0].name);
+        //store.cartItems = store.cookie.data;
+      }
+    },
+
+    getCookie() {
+      store.cookie = this.$cookies.get("denvolkpizza");
+      console.log(store.cookie.data);
+      console.log(store.cartItems)
+    },
+
     setBodyImg() {
       document.getElementsByTagName('body')[0].classList.add('body_img', 'body');
     },

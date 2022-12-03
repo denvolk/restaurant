@@ -51,12 +51,15 @@ export default {
 
       if (store.cookieExists) {
         this.getCookie();
+        console.log("store.cookie.length: " + store.cookie.length);
         /*store.cookie.data.forEach(item => {
           store.cartItems.push(item);
         });*/
-        for (let iter = 0; iter < store.cookie.length; iter++) {
+        /*for (let iter = 0; iter < store.cookie.length; iter++) {
           store.cartItems.push(store.cookie.data[iter]);
-        }
+        }*/
+        //store.cartItems = store.cookie.data;
+        store.cartItems = store.cookie.data.map(x => x);///
         console.log("store.cartItems" + store.cartItems);
         //let tempCookieData = store.cookie.data;
         //console.log("tempCookieData" + tempCookieData[0].name);
@@ -66,8 +69,9 @@ export default {
 
     getCookie() {
       store.cookie = this.$cookies.get("denvolkpizza");
-      console.log(store.cookie.data);
-      console.log(store.cartItems)
+      store.pageLang = store.cookie.lang;
+      //console.log("getCookie() store.cookie.data: " + store.cookie.data[0].name);
+      //console.log("getCookie() store.cartItems: " + store.cartItems);
     },
 
     setBodyImg() {

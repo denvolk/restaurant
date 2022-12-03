@@ -47,7 +47,7 @@ export default {
   data: function () {
     return  {
       store,
-      imgPath: '',
+      //imgPath: '',
       /*amount: 1,*/
       /*amountOf: this.amount,*/
     }
@@ -76,7 +76,8 @@ export default {
       store.shownItem.name = tempFoodData.name;
       store.shownItem.desc = tempFoodData.desc;
       store.shownItem.weight = tempFoodData.weight;
-      store.shownItem.img = this.imgPath;
+      //store.shownItem.img = this.imgPath;
+      store.shownItem.img = `https://raw.githubusercontent.com/denvolk/restaurant/gh-pages/assets/foods/${store.foods[this.sectionId - 1].data[this.foodId].img}.webp`;
 
       store.fullPageItem = true;
       store.itemOpened = true;
@@ -98,11 +99,21 @@ export default {
 
     deleteFromCart()  {
       //let index = store.cartItems.findIndex(x => x.name === this.name);
-      let tempFoodId = this.foodId;
-      tempFoodId--;
-      let index = store.cartItems.findIndex(x => x.sectionId === this.sectionId && x.foodId === tempFoodId);
-
+      /*let tempFoodId = this.foodId;
+      tempFoodId--;*/
+      //let index = store.cartItems.findIndex(x => x.sectionId === this.sectionId && x.foodId === tempFoodId);
+      //let index = store.cartItems[this.sectionId - 1]
+      //console.log("deleteFromCart: sectionId: " + this.sectionId + " foodId: " + this.foodId);
+      let index = store.cartItems.findIndex(x => x.sectionId === this.sectionId && x.foodId === this.foodId);
+      /*console.log("index: " + index);
+      console.log(store.cartItems[index]);*/
       store.cartItems.splice(index, 1);
+
+      if (store.cookieExists) {
+        //let tempCookie = {"data": store.cartItems};
+        let tempCookie = {"lang": store.pageLang, "data": store.cartItems};
+        this.$cookies.set(store.cookieName, tempCookie, store.cookieTime);
+      }
     },
   },
 
@@ -116,7 +127,7 @@ export default {
   },
 
   mounted() {
-    this.setImgPath();
+    //this.setImgPath();
   }
 }
 </script>

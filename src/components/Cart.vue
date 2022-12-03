@@ -1,6 +1,7 @@
 <template>
   <aside class="aside-cart" v-bind:class="{opened: store.cartOpened/*, overflowed: store.cartItems.length > 9*/}">
     <div class="aside-cart-list empty" v-if="!store.cartItems.length">Корзина пуста</div>
+    <div class="aside-cart-list foods-empty" v-else-if="!store.foods.length">Меню пусто</div> <!--Костыль, не отрисовывать содержимое корзины если куки не пусты но меню еще не подгрузилось с сервера-->
     <div class="aside-cart-list" v-else>
       <div class="empty-cart-btn" v-on:click="clearCart">
         Очистить корзину
@@ -8,9 +9,13 @@
       <!--<div class="full-cost">
         {{fullCost}} ₽
       </div>-->
-      <CartItem v-for="item in store.cartItems" :key="item.id"
+      <!--<CartItem v-for="item in store.cartItems" :key="item.id"
                 :foodId="item.foodId" :sectionId="item.sectionId" :name="item.name" :amount="item.amount" :cost="item.cost"
                 v-on:inc-amount="item.amount++" v-on:dec-amount="item.amount--"
+      >-->
+      <CartItem v-for="item in store.cartItems" :key="item.id"
+                :foodId="item.foodId" :sectionId="item.sectionId" :name="item.name" :amount="item.amount" :cost="item.cost"
+                v-on:inc-amount="incAmount(item)" v-on:dec-amount="decAmount(item)"
       >
 
       </CartItem>
@@ -68,7 +73,36 @@ export default {
   methods:  {
     clearCart() {
       store.cartItems = [];
-    }
+      let cookieData = {"lang": store.pageLang, "data": store.cartItems};
+      this.$cookies.set(store.cookieName, cookieData, store.cookieTime);
+    },
+
+    incAmount(item) {
+      item.amount++;
+      if (store.cookieExists) {
+        //this.$cookies.set(store.cookieName, store.cartItems, 60);
+        let cookieData = {"lang": store.pageLang, "data": store.cartItems};
+        this.$cookies.set(store.cookieName, cookieData, store.cookieTime);
+        /*let tempCookie = this.$cookies.get(store.cookieName);
+        let index = tempCookie.data.findIndex(x => x.sectionId === item.sectionId && x.foodId === item.foodId);
+
+        if (index === -1)
+          return;
+
+        tempCookie.data[index].amount = item.amount;
+        this.$cookies.set(store.cookieName, tempCookie, 60);*/
+      }
+    },
+
+    decAmount(item) {
+      item.amount--;
+
+      if (store.cookieExists) {
+        //this.$cookies.set(store.cookieName, store.cartItems, 60);
+        let cookieData = {"lang": store.pageLang, "data": store.cartItems};
+        this.$cookies.set(store.cookieName, cookieData, store.cookieTime);
+      }
+    },
   },
 
   computed: {

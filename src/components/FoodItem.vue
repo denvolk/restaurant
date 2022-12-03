@@ -130,8 +130,28 @@ export default {
         if (cartIndex !== -1) {
           store.cartItems[cartIndex].amount++;
           console.log(store.cartItems[cartIndex] + " amount: " + store.cartItems[cartIndex].amount);
-          let cookieData = {"id": "1", "user-name": "denvolk", "data": store.cartItems};
-          this.$cookies.set(store.cookieName, cookieData, 60);
+          //let cookieData = {"id": "1", "user-name": "denvolk", "data": store.cartItems};
+          //let cookieData = {"data": store.cartItems};
+          let cookieData = {"lang": store.pageLang, "data": store.cartItems};
+          /*let cookieData = [];
+          store.cartItems.forEach(item => {
+            let tempItem = {};
+            tempItem["name"] = item.name;
+            tempItem["sectionId"] = item.sectionId;
+            tempItem["foodId"] = item.foodId;
+            tempItem["amount"] = item.amount;
+            tempItem["cost"] = item.cost;
+            cookieData.push(item);
+          });*/
+          /*cookieData = store.cartItems.map(item => {
+            let tempItem = {};
+            tempItem["name"] = item.name;
+            tempItem["sectionId"] = item.sectionId;
+            tempItem["foodId"] = item.foodId;
+            tempItem["amount"] = item.amount;
+            tempItem["cost"] = item.cost;
+          });*/
+          this.$cookies.set(store.cookieName, cookieData, store.cookieTime);
           return;
         }
       }
@@ -175,8 +195,30 @@ export default {
         let cookieData = {"id": "1", "user-name": "denvolk", "data": store.cartItems};
         this.$cookies.set(store.cookieName, cookieData, 60);
       }*/
-      let cookieData = {"id": "1", "user-name": "denvolk", "data": store.cartItems};
-      this.$cookies.set(store.cookieName, cookieData, 60);
+      //let cookieData = {"id": "1", "user-name": "denvolk", "data": store.cartItems};
+      //let cookieData = {"data": store.cartItems};
+      let cookieData = {"lang": store.pageLang, "data": store.cartItems};
+      /*let cookieData = [];
+      store.cartItems.forEach(item => {
+        let tempItem = {};
+        tempItem["name"] = item.name;
+        tempItem["sectionId"] = item.sectionId;
+        tempItem["foodId"] = item.foodId;
+        tempItem["amount"] = item.amount;
+        tempItem["cost"] = item.cost;
+        cookieData.push(item);
+      });*/
+      /*let cookieData = [];
+      cookieData = store.cartItems.map(item => {
+        let tempItem = {};
+        tempItem["name"] = item.name;
+        tempItem["sectionId"] = item.sectionId;
+        tempItem["foodId"] = item.foodId;
+        tempItem["amount"] = item.amount;
+        tempItem["cost"] = item.cost;
+      });*/
+      this.$cookies.set(store.cookieName, cookieData, store.cookieTime);
+      store.cookieExists = true;
     },
 
     addItemToCart() {

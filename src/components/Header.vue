@@ -116,6 +116,9 @@ export default {
 
       store.pageLang = lang;
 
+      let tempCookieData = {"lang": store.pageLang, "data": store.cartItems};
+      this.$cookies.set(store.cookieName, tempCookieData, store.cookieTime);
+
       await this.repaintMenu();
     },
 
@@ -151,6 +154,10 @@ export default {
 
     async getMenuSections() {
       if (!this.store.foods.length) {
+        if (this.$cookies.isKey(store.cookieName)) {
+          let tempCookieData = this.$cookies.get(store.cookieName);
+          store.pageLang = tempCookieData.lang;
+        }
         //fetch(`http://localhost:3000/foods${store.pageLang}`)
         fetch(`https://my-json-server.typicode.com/denvolk/restaurant-db/foods${store.pageLang}`)
             .then((response) => response.json())

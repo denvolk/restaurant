@@ -17,11 +17,16 @@
     <!--<div v-show="isMouseOver" class="desc">{{desc}}</div>-->
     <div class="add-btn-container">
       <div class="amount" v-show="amount > 0">{{amount}}</div>
+      <div class="remove-from-cart" v-bind:class="{'cost-is-hovered': costIsHovered}" v-on:click="removeFromCart">
+        <span class="material-symbols-outlined remove">
+          remove
+        </span>
+      </div>
       <div class="weight">{{weight}}</div>
       <div class="add-to-cart" v-bind:class="{'cost-is-hovered': costIsHovered}" v-on:click="addToCart">
         <span class="material-symbols-outlined add">
-        add
-      </span>
+          add
+        </span>
       </div>
       <!--<button v-bind:class="{'cost-is-hovered': costIsHovered}" class="add-to-cart" v-on:click="addToCart">+</button>-->
     </div>
@@ -52,9 +57,10 @@ export default {
   computed: {
     amount() {
       //let index = store.cartItems.findIndex(x => x.name === this.name);
-      let tempFoodId = this.foodId;
-      tempFoodId--;
-      let index = store.cartItems.findIndex(x => x.sectionId === this.sectionId && x.foodId === tempFoodId)
+      //let tempFoodId = this.foodId;
+      //tempFoodId--;
+      //let index = store.cartItems.findIndex(x => x.sectionId === this.sectionId && x.foodId === tempFoodId)
+      let index = store.cartItems.findIndex(x => x.sectionId === this.sectionId && x.foodId === this.foodId);
       if (index === -1)
         return;
 
@@ -115,6 +121,22 @@ export default {
       store.cartItems.push(item);
     },*/
 
+    removeFromCart() {
+      console.log("removeFromCart");
+
+      if (!store.cartItems.length)
+        return;
+
+      let index = store.cartItems.findIndex(x => x.sectionId === this.sectionId && x.foodId === this.foodId);
+
+      if (index === -1)
+        return;
+
+      store.cartItems[index].amount--;
+      let cookieData = {"lang": store.pageLang, "data": store.cartItems};
+      this.$cookies.set(store.cookieName, cookieData, store.cookieTime);
+    },
+
     addToCart() {
 
       console.log("addToCart");
@@ -122,9 +144,10 @@ export default {
       if (store.cartItems.length) {
         console.log("cartItems.length > 0");
         //let cartIndex = store.cartItems.findIndex(x => x.name === this.name);
-        let tempFoodId = this.foodId;
-        tempFoodId--;
-        let cartIndex = store.cartItems.findIndex(x => x.sectionId === this.sectionId && x.foodId === tempFoodId);
+        //let tempFoodId = this.foodId;
+        //tempFoodId--;
+        //let cartIndex = store.cartItems.findIndex(x => x.sectionId === this.sectionId && x.foodId === tempFoodId);
+        let cartIndex = store.cartItems.findIndex(x => x.sectionId === this.sectionId && x.foodId === this.foodId);
         console.log("cartIndex1: " + cartIndex);
 
         if (cartIndex !== -1) {
@@ -170,21 +193,24 @@ export default {
           break;
       }*/
 
-      let tempFoodId1 = this.foodId;
-      let tempSectionId = this.sectionId;
-      tempSectionId--;
-      index = store.foods[tempSectionId].data.findIndex(x => x.id === tempFoodId1);
+      //let tempFoodId1 = this.foodId;
+      //let tempSectionId = this.sectionId;
+      //tempSectionId--;
+      //index = store.foods[tempSectionId].data.findIndex(x => x.id === tempFoodId1);
+      index = store.foods[this.sectionId].data.findIndex(x => x.id === this.foodId);
 
       if (index === -1)
         return;
 
       //sectionIndex++;
-      sectionIndex = tempSectionId;
-      sectionIndex++;
-      console.log("sectionId: " + sectionIndex + ", foodId: " + index);
+      //sectionIndex = tempSectionId;
+      //sectionIndex++;
+      //console.log("sectionId: " + sectionIndex + ", foodId: " + index);
+      console.log("sectionId: " + this.sectionId + ", foodId: " + index);
       let item = {};
       item["name"] = this.name;
-      item["sectionId"] = sectionIndex;
+      //item["sectionId"] = sectionIndex;
+      item["sectionId"] = this.sectionId;
       item["foodId"] = index;
       item["amount"] = 1;
       item["cost"] = this.weight.slice(0, -2);
@@ -358,6 +384,17 @@ p {
   opacity: 0;
   transition: all 2s ease-in;
   cursor: pointer;
+  /*border-right: 2px solid rgba(0, 0, 0, 0.35);
+  border-bottom: 2px solid rgba(0, 0, 0, 0.35);*/
+}
+
+.remove-from-cart {
+  display: none;
+  opacity: 0;
+  transition: all 2s ease-in;
+  cursor: pointer;
+  /*border-left: 2px solid rgba(0, 0, 0, 0.35);
+  border-bottom: 2px solid rgba(0, 0, 0, 0.35);*/
 }
 
 .cost-is-hovered  {
@@ -368,15 +405,25 @@ p {
   -moz-appearance: none;
   appearance: none;
   background: none;
-  border: none;
+  /*border: none;*/
   background-color: rgba(66, 185, 131, 1);
   height: 3em;
   width: 3em;
   line-height: 0.9em;
+  /*bottom: -0.1em;
+  right: -0.1em;*/
   bottom: 0;
   right: 0;
   border-radius: 1em 0 1.2em 0;
   font-size: 0.75em;
+}
+
+.remove-from-cart.cost-is-hovered {
+  /*left: -0.1em;
+  bottom: -0.1em;*/
+  border-radius: 0 1em 0 1.2em;
+  left: 0;
+  bottom: 0;
 }
 
 @media (-webkit-device-pixel-ratio: 1.25) {
@@ -414,18 +461,29 @@ p {
   line-height: 2.25em;
 }
 
+.remove {
+  font-variation-settings: 'FILL' 0,
+  'wght' 700,
+  'GRAD' 200,
+  'opsz' 48;
+  text-align: center;
+  line-height: 2.25em;
+}
+
 .amount {
   position: absolute;
-  background-color: #c2c2c2;
+  background-color: rgba(255, 255, 255, 0.8);
   height: 3em;
   width: 3em;
   line-height: 3em;
-  bottom: 0;
-  /*left: 0;*/
-  right: 9em;
-  /*border-radius: 1em 0 1.2em 0;*/
-  border-radius: 0 1em 0 1.2em;
+  top: 0;
+  left: 9em;
+  /* right: 9em; */
+  /* border-radius: 1em 0 1.2em 0; */
+  border-radius: 0 1.2em 0 1.2em;
   font-size: 0.75em;
+  -webkit-user-select: none;
+  -moz-user-select: none;
   user-select: none;
 }
 

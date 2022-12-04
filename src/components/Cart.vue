@@ -1,10 +1,10 @@
 <template>
   <aside class="aside-cart" v-bind:class="{opened: store.cartOpened/*, overflowed: store.cartItems.length > 9*/}">
-    <div class="aside-cart-list empty" v-if="!store.cartItems.length">Корзина пуста</div>
+    <div class="aside-cart-list empty" v-if="!store.cartItems.length">{{store.cartEmptyText}}</div>
     <div class="aside-cart-list foods-empty" v-else-if="!store.foods.length">Меню пусто</div> <!--Костыль, не отрисовывать содержимое корзины если куки не пусты но меню еще не подгрузилось с сервера-->
     <div class="aside-cart-list" v-else>
       <div class="empty-cart-btn" v-on:click="clearCart">
-        Очистить корзину
+        {{store.clearCartBtn}}
       </div>
       <!--<div class="full-cost">
         {{fullCost}} ₽
@@ -26,12 +26,15 @@
       {{store.cartItems}}-->
     </div>
     <div class="order-btn">
-      <div class="order-text" v-if="store.pageLang === 'ru'">
+      <div class="order-text">
+        {{store.orderBtn}}
+      </div>
+      <!--<div class="order-text" v-if="store.pageLang === 'ru'">
         Оформить заказ
       </div>
       <div class="order-text" v-else>
         Make order
-      </div>
+      </div>-->
       <div class="full-cost">
         {{fullCost}} ₽
       </div>
@@ -70,7 +73,12 @@ export default {
     }
   },
 
+  mounted() {
+
+  },
+
   methods:  {
+
     clearCart() {
       store.cartItems = [];
       let cookieData = {"lang": store.pageLang, "data": store.cartItems};
@@ -239,7 +247,7 @@ button {
   min-height: 3em;
   border-radius: 0.5em;
   /*margin-top: 0.5em;*/
-  padding: 0 0.5em;
+  padding: 0 0.75em;
   align-items: center;
   margin: 0.5em 0.25em 0 0.25em;
 }

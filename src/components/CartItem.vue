@@ -2,12 +2,16 @@
   <div class="cart-item">
     <!--<div class="cart-item data" v-bind:class="{overflowed: store.cartItems.length > 9}">-->
     <!--<img v-bind:src="imgPath" v-bind:alt="store.foods[sectionId - 1].data[foodId].name">-->
-    <img v-bind:src="`https://raw.githubusercontent.com/denvolk/restaurant/gh-pages/assets/foods/${store.foods[this.sectionId - 1].data[this.foodId].img}.webp`"
+    <!--<img v-bind:src="`https://raw.githubusercontent.com/denvolk/restaurant/gh-pages/assets/foods/${store.foods[this.sectionId - 1].data[this.foodId].img}.webp`"
          v-bind:alt="store.foods[sectionId - 1].data[foodId].name"
+         v-on:click="!store.foodItem ? openItem() : null">-->
+    <img v-bind:src="`https://raw.githubusercontent.com/denvolk/restaurant/gh-pages/assets/foods/${store.foods[this.sectionId].data[this.foodId].img}.webp`"
+         v-bind:alt="store.foods[sectionId].data[foodId].name"
          v-on:click="!store.foodItem ? openItem() : null">
     <div class="data">
       <div class="name">
-        {{ store.foods[sectionId - 1].data[foodId].name }}
+        <!--{{ store.foods[sectionId - 1].data[foodId].name }}-->
+        {{store.foods[sectionId].data[foodId].name}}
       </div>
       <!--<span class="tooltip-text">
           {{store.foods[sectionId - 1].data[foodId].name}}
@@ -68,7 +72,8 @@ export default {
     },
 
     openItem() {
-      let tempFoodData = store.foods[this.sectionId - 1].data[this.foodId];
+      //let tempFoodData = store.foods[this.sectionId - 1].data[this.foodId];
+      let tempFoodData = store.foods[this.sectionId].data[this.foodId];
 
       store.foodItem = true;
 
@@ -77,7 +82,8 @@ export default {
       store.shownItem.desc = tempFoodData.desc;
       store.shownItem.weight = tempFoodData.weight;
       //store.shownItem.img = this.imgPath;
-      store.shownItem.img = `https://raw.githubusercontent.com/denvolk/restaurant/gh-pages/assets/foods/${store.foods[this.sectionId - 1].data[this.foodId].img}.webp`;
+      //store.shownItem.img = `https://raw.githubusercontent.com/denvolk/restaurant/gh-pages/assets/foods/${store.foods[this.sectionId - 1].data[this.foodId].img}.webp`;
+      store.shownItem.img = `https://raw.githubusercontent.com/denvolk/restaurant/gh-pages/assets/foods/${store.foods[this.sectionId].data[this.foodId].img}.webp`;
 
       store.fullPageItem = true;
       store.itemOpened = true;
@@ -114,6 +120,8 @@ export default {
         let tempCookie = {"lang": store.pageLang, "data": store.cartItems};
         this.$cookies.set(store.cookieName, tempCookie, store.cookieTime);
       }
+
+      //this.$delete;
     },
   },
 

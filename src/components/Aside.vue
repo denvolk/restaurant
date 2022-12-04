@@ -89,7 +89,8 @@ a:hover {
   border-radius: 0.25em;
 }
 a:active  {
-  background-color: #ef0a0a;
+  /*background-color: #ef0a0a;*/
+  background-color: rgba(66, 185, 131, 1);
   border-radius: 0.25em;
 }
 a:visited {

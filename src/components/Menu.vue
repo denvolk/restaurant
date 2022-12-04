@@ -25,11 +25,33 @@ export default {
   },
 
   mounted() {
-
+    this.getMenuSections();
   },
 
   methods: {
-
+    async getMenuSections() {
+      if (!this.store.foods.length) {
+        if (this.$cookies.isKey(store.cookieName)) {
+          let tempCookieData = this.$cookies.get(store.cookieName);
+          store.pageLang = tempCookieData.lang;
+        }
+        //fetch(`http://localhost:3000/foods${store.pageLang}`)
+        fetch(`https://my-json-server.typicode.com/denvolk/restaurant-db/foods${store.pageLang}`)
+            .then((response) => response.json())
+            .then((foods) => {
+              console.log(foods);
+              foods.forEach(item => {
+                //foods.slice(1).forEach(item => {
+                store.foods.push(item);
+              });
+              /*for (let i = 0; i < foods.length; i++) {
+                store.foods.push(foods[i]);
+              }*/
+              console.log(store.foods);
+              this.menuName = foods[0].name;
+            });
+      };
+    },
   },
 }
 </script>
@@ -100,6 +122,25 @@ export default {
     /*margin-left: 1.25em;*/
     margin-left: 14.5em;
     margin-right: 18.5em;
+  }
+}
+
+@media screen and (min-width: 2500px) {
+  .menu-main {
+    margin-left: 13.75em;
+  }
+
+  .menuOpened {
+    margin-left: 13.75em;
+  }
+
+  .cartOpened {
+    margin-left: 6em;
+  }
+
+  .bothOpened {
+    margin-left: 21.25em;
+    margin-right: 25.5em;
   }
 }
 

@@ -78,7 +78,7 @@ export default {
 
   mounted() {
     this.getLanguages();
-    this.getMenuSections();
+    //this.getMenuSections();
   },
 
   computed: {
@@ -107,6 +107,11 @@ export default {
             langs.forEach(lang => {
               store.pageLanguages.push(lang);
             });
+            let index = store.pageLanguages.findIndex(x => x.name === store.pageLang);
+            store.orderBtn = store.pageLanguages[index]["order-btn"];
+            store.cartEmptyText = store.pageLanguages[index]["cart-empty"];
+            store.clearCartBtn = store.pageLanguages[index]["clear-cart-btn"];
+            console.log("1store.orderBtn: " + store.orderBtn + ", store.cartEmptyText: " + store.cartEmptyText + ", store.clearCartBtn: " + store.clearCartBtn);
           });
     },
 
@@ -119,6 +124,8 @@ export default {
       let tempCookieData = {"lang": store.pageLang, "data": store.cartItems};
       this.$cookies.set(store.cookieName, tempCookieData, store.cookieTime);
 
+      this.showLanguages = false;
+
       await this.repaintMenu();
     },
 
@@ -128,14 +135,20 @@ export default {
           .then((response) => response.json())
           .then((foods) => {
             console.log(foods);
-            foods.slice(1).forEach((item, index) => {
+            foods.forEach((item, index) => {
+            //foods.slice(1).forEach((item, index) => {
               this.$set(store.foods, index, item);
             });
             /*for (let i = 0; i < foods.length; i++) {
               this.$set(store.foods, i, foods[i]);
             }*/
-            console.log(store.foods);
-            this.menuName = foods[0].name;
+            //console.log(store.foods);
+            //this.menuName = foods[0].name;
+            let index = store.pageLanguages.findIndex(x => x.name === store.pageLang);
+            store.orderBtn = store.pageLanguages[index]["order-btn"];
+            store.cartEmptyText = store.pageLanguages[index]["cart-empty"];
+            store.clearCartBtn = store.pageLanguages[index]["clear-cart-btn"];
+            console.log("store.orderBtn: " + store.orderBtn + ", store.cartEmptyText: " + store.cartEmptyText + ", store.clearCartBtn: " + store.clearCartBtn);
           });
     },
 
@@ -150,29 +163,6 @@ export default {
 
     toggleCart()  {
       this.store.cartOpened = !this.store.cartOpened;
-    },
-
-    async getMenuSections() {
-      if (!this.store.foods.length) {
-        if (this.$cookies.isKey(store.cookieName)) {
-          let tempCookieData = this.$cookies.get(store.cookieName);
-          store.pageLang = tempCookieData.lang;
-        }
-        //fetch(`http://localhost:3000/foods${store.pageLang}`)
-        fetch(`https://my-json-server.typicode.com/denvolk/restaurant-db/foods${store.pageLang}`)
-            .then((response) => response.json())
-            .then((foods) => {
-              console.log(foods);
-              foods.slice(1).forEach(item => {
-                store.foods.push(item);
-              });
-              /*for (let i = 0; i < foods.length; i++) {
-                store.foods.push(foods[i]);
-              }*/
-              console.log(store.foods);
-              this.menuName = foods[0].name;
-            });
-      };
     },
 
     fillMenu()  {
@@ -335,6 +325,7 @@ export default {
     /*font-family: Caveat, sans-serif;
     font-family: Lobster, sans-serif;*/
     font-family: Pacifico, sans-serif;
+    font-kerning: normal;
   }
 
   .hidden {
@@ -370,6 +361,10 @@ export default {
     font-size: 0.75rem;
     padding: 0.25em;
     color: black;
+  }
+
+  .full-cost {
+    margin-right: 0.25em;
   }
 
   hr {

@@ -80,22 +80,22 @@ export default {
   margin-left: 17.75em;
 }
 
-@media (-webkit-device-pixel-ratio: 1.25) {
-  .menu-main {
-    margin-left: 1em;
-  }
-}
+/*@media (-webkit-device-pixel-ratio: 1.25) {*/
+/*  .menu-main {*/
+/*    margin-left: 1em;*/
+/*  }*/
+/*}*/
 
 .menuOpened {
   margin-left: 17.75em;
 }
 
-@media (-webkit-device-pixel-ratio: 1.25) {
-  .menuOpened {
-    /*margin-left: 2.5em;*/
-    margin-left: 15.5em;
-  }
-}
+/*@media (-webkit-device-pixel-ratio: 1.25) {*/
+/*  .menuOpened {*/
+/*    !*margin-left: 2.5em;*!*/
+/*    margin-left: 15.5em;*/
+/*  }*/
+/*}*/
 
 .cartOpened {
   /*margin-left: 2.75em;*/
@@ -103,11 +103,11 @@ export default {
   /*margin-right: 17em;*/
 }
 
-@media (-webkit-device-pixel-ratio: 1.25) {
-  .cartOpened {
-    margin-left: 7em;
-  }
-}
+/*@media (-webkit-device-pixel-ratio: 1.25) {*/
+/*  .cartOpened {*/
+/*    margin-left: 7em;*/
+/*  }*/
+/*}*/
 
 .bothOpened {
   /*margin-left: 16em;
@@ -117,30 +117,77 @@ export default {
   margin-right: 21.25em;
 }
 
+/*@media (-webkit-device-pixel-ratio: 1.25) {*/
+/*  .bothOpened {*/
+/*    !*margin-left: 1.25em;*!*/
+/*    margin-left: 14.5em;*/
+/*    margin-right: 18.5em;*/
+/*  }*/
+/*}*/
+
+/*@media screen and (min-width: 2500px) {*/
+/*  .menu-main {*/
+/*    margin-left: 13.75em;*/
+/*  }*/
+
+/*  .menuOpened {*/
+/*    margin-left: 13.75em;*/
+/*  }*/
+
+/*  .cartOpened {*/
+/*    margin-left: 6em;*/
+/*  }*/
+
+/*  .bothOpened {*/
+/*    margin-left: 21.25em;*/
+/*    margin-right: 25.5em;*/
+/*  }*/
+/*}*/
+
 @media (-webkit-device-pixel-ratio: 1.25) {
-  .bothOpened {
-    /*margin-left: 1.25em;*/
-    margin-left: 14.5em;
-    margin-right: 18.5em;
+
+  @media screen and (min-width: 1800px) {
+    .menuOpened {
+      margin-left: 19.5em;
+    }
+
+    .bothOpened {
+      margin-left: 18.75em;
+    }
+  }
+
+  @media screen and (min-width: 2500px) {
+    .menuOpened {
+      margin-left: 16.25em;
+    }
+
+    .bothOpened {
+      margin-left: 15.5em;
+      margin-right: 19em;
+    }
   }
 }
 
-@media screen and (min-width: 2500px) {
-  .menu-main {
-    margin-left: 13.75em;
+@media (-webkit-device-pixel-ratio: 1) {
+
+  @media screen and (min-width: 1800px) {
+    .menuOpened {
+      margin-left: 18em;
+    }
+
+    .bothOpened {
+      margin-left: 17.25em;
+    }
   }
 
-  .menuOpened {
-    margin-left: 13.75em;
-  }
+  @media screen and (min-width: 2500px) {
+    .menuOpened {
+      margin-left: 22em;
+    }
 
-  .cartOpened {
-    margin-left: 6em;
-  }
-
-  .bothOpened {
-    margin-left: 21.25em;
-    margin-right: 25.5em;
+    .bothOpened {
+      margin-left: 21.25em;
+    }
   }
 }
 

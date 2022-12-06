@@ -249,7 +249,7 @@ button {
   /*margin-top: 0.5em;*/
   padding: 0 0.75em;
   align-items: center;
-  margin: 0.5em 0.25em 0 0.25em;
+  margin: 0.5em 0 0 0;
 }
 
 ::-webkit-scrollbar-track {

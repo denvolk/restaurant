@@ -61,6 +61,9 @@ export default {
         //store.cartItems = store.cookie.data;
         store.cartItems = store.cookie.data.map(x => x);///
         console.log("store.cartItems" + store.cartItems);
+
+        if (store.cartItems.length)
+          store.cartOpened = true;
         //let tempCookieData = store.cookie.data;
         //console.log("tempCookieData" + tempCookieData[0].name);
         //store.cartItems = store.cookie.data;

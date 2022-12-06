@@ -17,13 +17,15 @@
     <!--<div v-show="isMouseOver" class="desc">{{desc}}</div>-->
     <div class="add-btn-container">
       <div class="amount" v-show="amount > 0">{{amount}}</div>
-      <div class="remove-from-cart" v-bind:class="{'cost-is-hovered': costIsHovered}" v-on:click="removeFromCart">
+      <div class="remove-from-cart" v-bind:class="{'cost-is-hovered': costIsHovered, 'disabled': !amount}" v-on:click="removeFromCart">
+<!--      <div class="remove-from-cart cost-is-hovered" v-on:click="removeFromCart">-->
         <span class="material-symbols-outlined remove">
           remove
         </span>
       </div>
       <div class="weight">{{weight}}</div>
       <div class="add-to-cart" v-bind:class="{'cost-is-hovered': costIsHovered}" v-on:click="addToCart">
+<!--      <div class="add-to-cart cost-is-hovered" v-on:click="addToCart">-->
         <span class="material-symbols-outlined add">
           add
         </span>
@@ -289,15 +291,16 @@ export default {
 .food-item  {
   display: flex;
   flex-direction: column;
+  overflow: hidden;
   /*flex-grow: 1;*/
   position: relative;
   margin: 1em 0.8em 1em 0.8em;
   border: 2px solid rgba(0, 0, 0, 0.35);
   border-radius: 1em;
   background-color: #fff;
-  width: 8em;
-  min-height: 13em;
-  padding: 0.5em;
+  width: 9em;
+  height: 13.5em;
+  padding: 0.5em 0 0 0;
   justify-content: space-between;
   box-shadow: 0 0 20px hsl(40deg 3% 45% / 20%);
 }
@@ -348,7 +351,7 @@ img {
   -webkit-user-select: none;
   -moz-user-select: none;
   user-select: none;
-  width: 8.1em;
+  width: 9em;
   cursor: pointer;
   height: 1.2em;
   line-height: 1.2em;
@@ -371,59 +374,79 @@ img {
 p {
   max-width: 8em;
 }
+
+.name {
+  padding: 0 0.5em;
+}
+
 .weight {
-  justify-content: flex-end;
+  /*justify-content: flex-end;*/
+  align-self: center;
 }
 
 .add-btn-container  {
-
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 .add-to-cart  {
-  display: none;
-  opacity: 0;
-  transition: all 2s ease-in;
+  /*display: none;*/
+  /*position: absolute;*/
+  visibility: hidden;
+  /*opacity: 0;*/
+  background-color: rgba(66, 185, 131, 1);
+  height: 3em;
+  width: 3em;
+  line-height: 0.9em;
+  bottom: 0;
+  right: 0;
+  border-radius: 1em 0 0 0;
+  font-size: 0.75em;
+  /*transition: all 2s ease-in;*/
   cursor: pointer;
   /*border-right: 2px solid rgba(0, 0, 0, 0.35);
   border-bottom: 2px solid rgba(0, 0, 0, 0.35);*/
 }
 
 .remove-from-cart {
-  display: none;
-  opacity: 0;
-  transition: all 2s ease-in;
+  /*display: none;*/
+  /*position: absolute;*/
+  visibility: hidden;
+  /*opacity: 0;*/
+  background-color: rgba(66, 185, 131, 1);
+  height: 3em;
+  width: 3em;
+  line-height: 0.9em;
+  border-radius: 0 1em 0 0;
+  font-size: 0.75em;
+  /*transition: all 2s ease-in;*/
   cursor: pointer;
   /*border-left: 2px solid rgba(0, 0, 0, 0.35);
   border-bottom: 2px solid rgba(0, 0, 0, 0.35);*/
 }
 
 .cost-is-hovered  {
-  display: block;
-  opacity: 1;
-  position: absolute;
-  -webkit-appearance: none;
+  /*display: block;*/
+  visibility: visible;
+  /*opacity: 1;*/
+  /*-webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-  background: none;
+  background: none;*/
   /*border: none;*/
-  background-color: rgba(66, 185, 131, 1);
-  height: 3em;
-  width: 3em;
-  line-height: 0.9em;
   /*bottom: -0.1em;
   right: -0.1em;*/
-  bottom: 0;
-  right: 0;
-  border-radius: 1em 0 1.2em 0;
-  font-size: 0.75em;
 }
 
 .remove-from-cart.cost-is-hovered {
   /*left: -0.1em;
   bottom: -0.1em;*/
-  border-radius: 0 1em 0 1.2em;
-  left: 0;
-  bottom: 0;
+}
+
+.disabled {
+  background-color: #c2c2c2;
+  cursor: default;
 }
 
 @media (-webkit-device-pixel-ratio: 1.25) {
@@ -445,7 +468,7 @@ p {
 .material-symbols-outlined {
   align-self: center;
   user-select: none;
-  cursor: pointer;
+  /*cursor: pointer;*/
   font-variation-settings: 'FILL' 0,
   'wght' 400,
   'GRAD' 0,

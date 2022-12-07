@@ -383,6 +383,7 @@ p {
 .weight {
   /*justify-content: flex-end;*/
   align-self: center;
+  user-select: none;
 }
 
 .add-btn-container  {

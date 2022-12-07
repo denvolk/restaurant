@@ -13,8 +13,8 @@
       <div class="header-phone-number">
         +7 (XXX) XXX-XX-XX
       </div>
-      <div class="header-address">
-        ул. Пушкина, д. 133, помещение 25
+      <div class="header-address" v-if="store.pageLanguages.length">
+        {{store.pageLanguages[currLang]['restaurant-address']}}
       </div>
     </section>
     <section class="rest-name">
@@ -90,6 +90,14 @@ export default {
   },
 
   computed: {
+
+    currLang() {
+      let index = store.pageLanguages.findIndex(x => x.name === store.pageLang);
+      if (index === -1)
+        return;
+
+      return index;
+    },
 
     fullCost() {
       let fCost = 0;
@@ -239,11 +247,27 @@ export default {
     right: 0;
   }
 
+  @media (-webkit-device-pixel-ratio: 1.25) {
+    .header-data {
+      left: 14%;
+    }
+  }
+
+  @media (-webkit-device-pixel-ratio: 1.0) {
+    .header-data {
+      left: 11%;
+    }
+  }
+
   .header-data {
-    display: flex;
-    flex-direction: column;
+    //display: flex;
+    //flex-direction: column;
+    //line-height: 2em;
+    //margin-left: -68em;
+    //text-align: left;
+    position: fixed;
     line-height: 2em;
-    margin-left: -68em;
+    text-align: left;
   }
 
   //.header-phone-number, .header-address {

@@ -23,56 +23,86 @@
       <div class="user-data">
         <form class="form" novalidate="true" v-on:submit.prevent="submitForm" action="https://my-json-server.typicode.com/denvolk/restaurant-db/orders/" method="post">
           <div class="field user-name">
-            <span class="material-symbols-outlined err lname" v-show="isDisabled['lNameErr']">
-              error
+            <span class="material-symbols-rounded err fname" v-show="!isDisabled['fNameErr']">
+              done
             </span>
-            <input type="text" name="lastname" id="lastname"
-                   v-model="form.lastName" v-bind:placeholder="store.pageLanguages[currLang]['placeholders']['last-name']"
-            >
-            <label for="lastname">{{store.pageLanguages[currLang]['placeholders']['last-name']}}</label>
-            <span class="material-symbols-outlined err fname" v-show="isDisabled['fNameErr']">
-              error
+            <div class="input-container">
+              <!--              <input type="text" name="firstname" id="firstname"-->
+              <!--                     v-model="form.firstName" v-bind:placeholder="store.pageLanguages[currLang]['placeholders']['first-name']" autofocus-->
+              <!--              >-->
+              <input type="text" name="firstname" id="firstname"
+                     v-model="form.firstName" placeholder=" " autofocus
+              >
+              <label for="firstname">{{store.pageLanguages[currLang]['placeholders']['first-name']}}</label>
+            </div>
+            <span class="material-symbols-rounded err lname" v-show="!isDisabled['lNameErr']">
+              done
             </span>
-            <input type="text" name="firstname" id="firstname"
-                   v-model="form.firstName" v-bind:placeholder="store.pageLanguages[currLang]['placeholders']['first-name']" autofocus
-            >
-            <label for="firstname">{{store.pageLanguages[currLang]['placeholders']['first-name']}}</label>
+            <div class="input-container">
+<!--              <input type="text" name="lastname" id="lastname"-->
+<!--                     v-model="form.lastName" v-bind:placeholder="store.pageLanguages[currLang]['placeholders']['last-name']"-->
+<!--              >-->
+              <input type="text" name="lastname" id="lastname"
+                     v-model="form.lastName" placeholder=" "
+              >
+              <label for="lastname">{{store.pageLanguages[currLang]['placeholders']['last-name']}}</label>
+            </div>
           </div>
           <div class="field email">
-            <span class="material-symbols-outlined err email-err" v-show="isDisabled['emailErr']">
-              error
+            <span class="material-symbols-rounded err email-err" v-show="!isDisabled['emailErr']">
+              done
             </span>
-            <input type="email" name="email" id="email"
-                    v-model="form.email" placeholder="example@gmail.com" autocomplete="on"
-            >
-            <label for="email">Email</label>
+            <div class="input-container">
+<!--              <input type="email" name="email" id="email"-->
+<!--                     v-model="form.email" placeholder="example@gmail.com" autocomplete="on"-->
+<!--              >-->
+              <input type="email" name="email" id="email"
+                     v-model="form.email" autocomplete="on" placeholder=" "
+              >
+              <label for="email">Email</label>
+            </div>
           </div>
           <div class="field phone">
-            <span class="material-symbols-outlined err phone-err" v-show="isDisabled['phoneErr']">
-              error
+            <span class="material-symbols-rounded err phone-err" v-show="!isDisabled['phoneErr']">
+              done
             </span>
-            <input type="text" name="phone" id="phone"
-                   v-model="form.phone" v-bind:placeholder="store.pageLanguages[currLang]['placeholders']['phone-mask']"
-            >
-            <label for="phone">{{store.pageLanguages[currLang]['placeholders']['phone']}}</label>
+            <div class="input-container">
+<!--              <input type="text" name="phone" id="phone"-->
+<!--                     v-model="form.phone" v-bind:placeholder="store.pageLanguages[currLang]['placeholders']['phone-mask']"-->
+<!--              >-->
+              <input type="text" name="phone" id="phone"
+                     v-model="form.phone" placeholder=" "
+              >
+              <label for="phone">{{store.pageLanguages[currLang]['placeholders']['phone']}}</label>
+            </div>
           </div>
           <div class="field address">
-            <span class="material-symbols-outlined err address-err" v-show="isDisabled['addressErr']">
-              error
-            </span>
-            <textarea name="address" id="address" rows="2" cols="50"
-                      v-model="form.address" v-bind:placeholder="store.pageLanguages[currLang]['placeholders']['address']"
-                      ></textarea>
-            <label for="address">{{store.pageLanguages[currLang]['placeholders']['address']}}</label>
+<!--            <span class="material-symbols-rounded err address-err" v-show="!isDisabled['addressErr']">-->
+<!--              done-->
+<!--            </span>-->
+            <div class="input-container">
+<!--              <textarea name="address" id="address" rows="2" cols="50"-->
+<!--                        v-model="form.address" v-bind:placeholder="store.pageLanguages[currLang]['placeholders']['address']"-->
+<!--              ></textarea>-->
+              <textarea name="address" id="address" rows="2" cols="45"
+                        v-bind:class="{addressCorrect: !isDisabled['addressErr']}" v-model="form.address" v-bind:placeholder="store.pageLanguages[currLang]['placeholders']['address']"
+              ></textarea>
+<!--              <label for="address">{{store.pageLanguages[currLang]['placeholders']['address']}}</label>-->
+            </div>
           </div>
           <div class="field comment">
-            <textarea name="comment" id="comment" rows="5" cols="50"
-                      v-model="form.comment" v-bind:placeholder="store.pageLanguages[currLang]['placeholders']['comment']"
-                      ></textarea>
-            <label for="comment">{{store.pageLanguages[currLang]['placeholders']['comment']}}</label>
+            <div class="input-container">
+<!--              <textarea name="comment" id="comment" rows="5" cols="50"-->
+<!--                        v-model="form.comment" v-bind:placeholder="store.pageLanguages[currLang]['placeholders']['comment']"-->
+<!--              ></textarea>-->
+              <textarea name="comment" id="comment" rows="3" cols="45"
+                        v-model="form.comment" v-bind:placeholder="store.pageLanguages[currLang]['placeholders']['comment']"
+              ></textarea>
+<!--              <label for="comment">{{store.pageLanguages[currLang]['placeholders']['comment']}}</label>-->
+            </div>
           </div>
           <div class="field submit">
-            <button>{{store.pageLanguages[currLang]['order-btn']}}</button>
+            <button v-bind:class="{disabled: userInfoNotFilled}">{{store.pageLanguages[currLang]['order-btn']}}</button>
           </div>
 <!--          <input type="text" id="firstname" v-bind:placeholder="store.pageLanguages[currLang]['placeholders']['first-name']" required autofocus>-->
 <!--          <label for="firstname">{{store.pageLanguages[currLang]['placeholders']['first-name']}}</label>-->
@@ -109,22 +139,22 @@
         </div>
         <div class="info-text" v-else>
           <div class="first-text">
-            Your order: {{store.orderNumber}}
+            {{store.pageLanguages[currLang]['order-text-one']}}: {{store.orderNumber}}
           </div>
           <div class="second-text">
-            is placed
+            {{store.pageLanguages[currLang]['order-text-two']}}.
           </div>
           <div class="third-text">
-            Our manager will soon contact you using provided phone number.
+            {{store.pageLanguages[currLang]['order-text-three']}}.
           </div>
           <div class="fourth-text">
-            If you don't get a call in 10 minutes please call us using this number:
+            {{store.pageLanguages[currLang]['order-text-four']}}:
           </div>
           <div class="fifth-text">
             +7 (XXX) XXX-XX-XX
           </div>
           <div class="sixth-text">
-            and provide your order number
+            {{store.pageLanguages[currLang]['order-text-five']}}.
           </div>
         </div>
       </div>
@@ -238,6 +268,15 @@ export default {
     orderFullCost() {
       return parseInt(this.fullCost) + parseInt(this.deliveryCost);
     },
+
+    userInfoNotFilled() {
+      if (this.isDisabled['fNameErr'] ||
+          this.isDisabled['lNameErr'] ||
+          this.isDisabled['emailErr'] ||
+          this.isDisabled['phoneErr'] ||
+          this.isDisabled['addressErr'])
+        return true;
+    },
   },
 
   methods:  {
@@ -345,7 +384,7 @@ export default {
 }
 
 .order-data {
-  height: 22em;
+  height: 23em;
   padding: 2em;
 }
 
@@ -369,10 +408,11 @@ export default {
 }
 
 .user-data {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  text-align: left;
+  /*display: flex;*/
+  /*flex-direction: column;*/
+  /*justify-content: center;*/
+  /*text-align: left;*/
+  width: 24.25em;
 }
 
 .order-info {
@@ -387,7 +427,7 @@ export default {
 
 .info-text span {
   /*margin: 0 0.5em 1em 0;*/
-  min-width: 10em;
+  min-width: 10.5em;
   text-align: left;
 }
 
@@ -397,14 +437,50 @@ export default {
 }
 
 .form {
-  display: flex;
-  flex-direction: column;
+  /*display: flex;*/
+  /*flex-direction: column;*/
 }
 
 .field {
-  display: flex;
-  flex-direction: column-reverse;
+  /*display: flex;*/
+  /*flex-direction: column-reverse;*/
   position: relative;
+}
+
+button {
+  outline: none;
+  border:none;
+  background-image:none;
+  background-color:transparent;
+  box-shadow: none;
+}
+
+.field.submit button {
+  font-family: Rubik, sans-serif;
+  color: #000;
+  background-color: #c2c2c2;
+  outline: none;
+  border: 0;
+  padding: 10px 20px;
+  text-transform: uppercase;
+  border-radius: 0.25em;
+  cursor: pointer;
+  position: relative;
+  width: 29.25em;
+  margin-top: -0.25em;
+}
+
+.field.submit button:hover {
+  background-color: rgba(66, 185, 131, 1);
+}
+
+.field.submit button.disabled {
+  cursor: default;
+}
+
+.field.submit button.disabled {
+  background-color: #c2c2c2;
+  cursor: default;
 }
 
 textarea {
@@ -473,28 +549,55 @@ img {
   'opsz' 48
 }
 
-.material-symbols-outlined.err {
+.material-symbols-rounded.err {
   font-variation-settings: 'FILL' 0,
   'wght' 100,
   'GRAD' 200,
   'opsz' 20;
 
-  color: red;
+  color: rgba(66, 185, 131, 1);
   position: absolute;
-  left: -1.1em;
-  top: 0.75em
+  right: 0;
+  top: 0.2em;
+  z-index: 999;
+  /*left: -1.1em;*/
+  /*top: 0.75em*/
 }
 
-.material-symbols-outlined.err.lname {
+.material-symbols-rounded.err.lname {
 
 }
 
-.material-symbols-outlined.err.lname {
-  top: 2.4em;
+.material-symbols-rounded.err.lname {
+  top: 2.1em;
 }
 
-.material-symbols-outlined.err.email-err {
+.material-symbols-rounded.err.email-err {
 
+}
+
+.material-symbols-rounded.err.address-err {
+  top: 0;
+}
+
+.addressCorrect,
+.addressCorrect:focus-visible{
+  border: 1px solid rgba(66, 185, 131, 1);
+}
+
+textarea {
+  border: 1px solid black;
+  border-radius: 2px;
+}
+
+textarea:focus-visible {
+  outline: none;
+  border:none;
+  background-image:none;
+  background-color:transparent;
+  box-shadow: none;
+  border: 1px solid black;
+  border-radius: 2px;
 }
 
 .close {
@@ -507,6 +610,98 @@ img {
   user-select: none;
   cursor: pointer;
   margin-top: -1.5em;
+}
+
+/*input[type="text"], input[type="email"], textarea {
+  outline: none;
+  border: none;
+  border-bottom: 1px solid black;
+  background-image:none;
+  background-color:transparent;
+  box-shadow: none;
+}*/
+
+.input-container{
+  position:relative;
+  /*margin-bottom:25px;*/
+  margin-bottom: 1em;
+}
+/*.input-container:last-child,
+.input-container:nth-last-child(2) {
+  margin-bottom: 1em;
+}*/
+.input-container label{
+  position:absolute;
+  top: 0.5em;
+  left: 0em;
+  font-size:16px;
+  color:#000;
+  pointer-event:none;
+  transition: all 0.5s ease-in-out;
+}
+.input-container input{
+  font-family: Rubik, sans-serif;
+  border:0;
+  border-bottom:1px solid #555;
+  background:transparent;
+  width:100%;
+  padding:8px 0 3px 0;
+  font-size:1em;
+  color:#000;
+}
+.input-container input:focus{
+  border:none;
+  outline:none;
+  border-bottom:1px solid #e74c3c;
+}
+
+/*.input-container input:focus ~ label,*/
+/*.input-container input:valid ~ label{*/
+/*  top:-12px;*/
+/*  font-size:12px;*/
+/*}*/
+
+/*.input-container input:focus ~ label {*/
+/*  top:-12px;*/
+/*  font-size:12px;*/
+/*}*/
+
+.input-container input:focus ~ label,
+.input-container input:not(:placeholder-shown) ~ label {
+  top: -0.5em;
+  font-size: 0.75em;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus
+/*textarea:-webkit-autofill,*/
+/*textarea:-webkit-autofill:hover,*/
+/*textarea:-webkit-autofill:focus,*/
+/*select:-webkit-autofill,*/
+/*select:-webkit-autofill:hover,*/
+/*select:-webkit-autofill:focus*/ {
+/*  border: 1px solid green;*/
+  /*-webkit-text-fill-color: green;*/
+  font-size:1em;
+  /*-webkit-box-shadow: 0 0 0px 1000px #000 inset;*/
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+textarea {
+  font-family: Rubik, sans-serif;
+  font-size: 1em;
+  width: 24em;
+}
+
+@media (-webkit-device-pixel-ratio: 1.25) {
+
+  @media screen and (min-width: 1500px) {
+    .item-data.order-data {
+      height: 23em;
+      width: 47em;
+    }
+  }
 }
 
 .lds-hourglass {

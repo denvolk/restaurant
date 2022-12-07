@@ -21,21 +21,30 @@
       </div>
     </div>
     <div class="amount">
-      <span class="material-symbols-outlined add" v-on:click="$emit('inc-amount')">
+      <!--<span class="material-symbols-outlined add" v-on:click="$emit('inc-amount')">
         add
-      </span>
+      </span>-->
+      <img src="https://raw.githubusercontent.com/denvolk/restaurant/gh-pages/assets/svg/add_FILL0_wght400_GRAD0_opsz20.svg"
+           v-on:click="$emit('inc-amount')"
+      >
       <!--<button class="inc-cart-item-btn" v-on:click="$emit('inc-amount')">+</button>-->
       <div class="amount-text">
         {{amount}}
       </div>
-      <span class="material-symbols-outlined remove" v-on:click="$emit('dec-amount')">
+      <!--span class="material-symbols-outlined remove" v-on:click="$emit('dec-amount')">
         remove
-      </span>
+      </span>-->
+      <img src="https://raw.githubusercontent.com/denvolk/restaurant/gh-pages/assets/svg/remove_FILL0_wght400_GRAD0_opsz20.svg"
+           v-on:click="$emit('dec-amount')"
+      >
       <!--<button class="dec-cart-item-btn" v-on:click="$emit('dec-amount')">-</button>-->
     </div>
-    <span class="material-symbols-outlined delete" v-on:click="deleteFromCart">
+    <!--<span class="material-symbols-outlined delete" v-on:click="deleteFromCart">
       delete
-    </span>
+    </span>-->
+    <img class="delete" src="https://raw.githubusercontent.com/denvolk/restaurant/gh-pages/assets/svg/delete_FILL0_wght300_GRAD0_opsz20.svg"
+         v-on:click="deleteFromCart"
+    >
     <!--<button class="delete-cart-item-btn" v-on:click="deleteFromCart">X</button>-->
   </div>
 </template>
@@ -149,7 +158,7 @@ export default {
   margin: 0.5em 0.25em 0 0;
   text-align: left;
   color: #000;
-  padding: 0.25em 0 0.25em 0.25em;
+  padding: 0.25em 0.25em 0.25em 0.25em;
   background-color: #c2c2c2;
   border-radius: 0.25em;
   width: 15em;
@@ -262,6 +271,18 @@ px
   user-select: none;
 }
 
+.cart-item .amount > img {
+  width: 1.25em;
+  height: 1.25em;
+  align-self: center;
+  border-radius: 0;
+}
+
+.cart-item .amount > img:hover {
+  background-color: rgba(255, 255, 255, 0.6);
+  border-radius: 0.25em;
+}
+
 .amount-text {
   align-self: center;
   width: 1em;
@@ -302,8 +323,15 @@ button {
 
 .delete {
   position: absolute;
-  bottom: 0;
-  right: 0;
+  bottom: 0.1em;
+  right: 0.1em;
+  width: 1.5em;
+  height: 1.5em;
+}
+
+.delete:hover {
+  background-color: rgba(255, 255, 255, 0.6);
+  border-radius: 0.25em;
 }
 
 .material-symbols-outlined.delete {

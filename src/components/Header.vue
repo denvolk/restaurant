@@ -25,9 +25,10 @@
         {{fullCost}} ₽
       </div>
       <section class="cart" v-on:click="toggleCart">
-      <span class="material-symbols-outlined">
+      <!--<span class="material-symbols-outlined">
         shopping_cart
-      </span>
+      </span>-->
+        <img src="https://raw.githubusercontent.com/denvolk/restaurant/gh-pages/assets/svg/shopping_cart_FILL0_wght400_GRAD0_opsz48.svg">
         <div class="cart-counter" v-show="store.cartItems.length">
           {{store.cartItems.length}}
         </div>
@@ -38,12 +39,18 @@
           {{store.pageLang.toUpperCase()}}
         </div>
         <div class="languages">
-          <span class="material-symbols-rounded" v-on:click="showLanguages = !showLanguages" v-if="showLanguages">
+          <!--<span class="material-symbols-rounded" v-on:click="showLanguages = !showLanguages" v-if="showLanguages">
             expand_less
-          </span>
-          <span class="material-symbols-rounded" v-on:click="showLanguages = !showLanguages" v-else>
+          </span>-->
+          <img src="https://raw.githubusercontent.com/denvolk/restaurant/gh-pages/assets/svg/expand_less_FILL0_wght400_GRAD0_opsz48.svg"
+               v-on:click="showLanguages = !showLanguages" v-if="showLanguages"
+          >
+          <!--<span class="material-symbols-rounded" v-on:click="showLanguages = !showLanguages" v-else>
             expand_more
-          </span>
+          </span>-->
+          <img src="https://raw.githubusercontent.com/denvolk/restaurant/gh-pages/assets/svg/expand_more_FILL0_wght400_GRAD0_opsz48.svg"
+               v-on:click="showLanguages = !showLanguages" v-else
+          >
           <div class="lang-select-btn" v-show="showLanguages" v-for="item in filteredPageLanguages" :key="item.id" v-bind:class="item.name" v-on:click="translatePage(item.name);">
             {{item.name.toString().toUpperCase()}}
           </div>
@@ -394,27 +401,32 @@ export default {
     cursor: pointer;
   }
 
-  .cart-counter {
-    position: absolute;
-    top: 2.5em;
-    left: 1em;
-    width: 1.25em;
-    height: 1.25em;
-    text-align: center;
-    line-height: 1.34em;
-    background-color: rgba(50, 205, 50, 0.8);
-    border-radius: 50%;
-    font-size: 0.75rem;
-    padding: 0.25em;
-    color: black;
-  }
+  .cart > img {
+    max-height: 1.5em;
+    vertical-align: unset;
+}
 
-  .full-cost {
-    margin-right: 0.25em;
-  }
+.cart-counter {
+  position: absolute;
+  top: 2.5em;
+  left: 1em;
+  width: 1.25em;
+  height: 1.25em;
+  text-align: center;
+  line-height: 1.34em;
+  background-color: rgba(50, 205, 50, 0.8);
+  border-radius: 50%;
+  font-size: 0.75rem;
+  padding: 0.25em;
+  color: black;
+}
 
-  hr {
-    margin: 0.75em;
-    border-width: 2px;
-  }
+.full-cost {
+  margin-right: 0.25em;
+}
+
+hr {
+  margin: 0.75em;
+  border-width: 2px;
+}
 </style>

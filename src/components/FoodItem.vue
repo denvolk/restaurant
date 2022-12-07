@@ -7,9 +7,12 @@
          v-on:click="!store.foodItem ? openItem() : null"
     >
       <img v-bind:src="logoPath" v-bind:alt="name" v-on:load="setImgLoadState">
-      <span class="material-symbols-rounded imgBtn" v-show="imgIsHovered">
+      <!--<span class="material-symbols-rounded imgBtn" v-show="imgIsHovered">
         expand_content
-      </span>
+      </span>-->
+      <div class="svg-container" v-show="imgIsHovered">
+        <img class="imgBtn" src="https://raw.githubusercontent.com/denvolk/restaurant/gh-pages/assets/svg/expand_content_FILL0_wght400_GRAD0_opsz20.svg">
+      </div>
       <!--<div class="imgBtn" v-show="imgIsHovered"><span>Состав</span></div>-->
     </div>
     <div v-show="!imgIsLoaded" class="lds-hourglass"></div>
@@ -19,16 +22,18 @@
       <div class="amount" v-show="amount > 0">{{amount}}</div>
       <div class="remove-from-cart" v-bind:class="{'cost-is-hovered': costIsHovered, 'disabled': !amount}" v-on:click="removeFromCart">
 <!--      <div class="remove-from-cart cost-is-hovered" v-on:click="removeFromCart">-->
-        <span class="material-symbols-outlined remove">
+        <!--<span class="material-symbols-outlined remove">
           remove
-        </span>
+        </span>-->
+        <img class="remove" src="https://raw.githubusercontent.com/denvolk/restaurant/gh-pages/assets/svg/remove_FILL0_wght700_GRAD200_opsz48.svg">
       </div>
       <div class="weight">{{weight}}</div>
       <div class="add-to-cart" v-bind:class="{'cost-is-hovered': costIsHovered}" v-on:click="addToCart">
 <!--      <div class="add-to-cart cost-is-hovered" v-on:click="addToCart">-->
-        <span class="material-symbols-outlined add">
+        <!--<span class="material-symbols-outlined add">
           add
-        </span>
+        </span>-->
+        <img src="https://raw.githubusercontent.com/denvolk/restaurant/gh-pages/assets/svg/add_FILL0_wght700_GRAD200_opsz48.svg">
       </div>
       <!--<button v-bind:class="{'cost-is-hovered': costIsHovered}" class="add-to-cart" v-on:click="addToCart">+</button>-->
     </div>
@@ -334,16 +339,7 @@ img {
   user-select: none;
 }
 
-.imgBtn {
-  /*position: absolute;
-  background-color: rgba(255, 255, 255, 0.7);
-  bottom: 3.25em;
-  z-index: 99;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  user-select: none;
-  width: 8.1em;
-  cursor: pointer;*/
+.svg-container {
   position: absolute;
   background-color: rgba(255, 255, 255, 0.7);
   bottom: 3.2em;
@@ -354,8 +350,25 @@ img {
   user-select: none;
   width: 9em;
   cursor: pointer;
-  height: 1.2em;
+  height: 1em;
   line-height: 1.2em;
+}
+
+.svg-container:hover > img {
+  height: 1em;
+  width: 1em;
+}
+
+.imgBtn {
+  /*position: absolute;
+  background-color: rgba(255, 255, 255, 0.7);
+  bottom: 3.25em;
+  z-index: 99;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  width: 8.1em;
+  cursor: pointer;*/
 }
 
 .material-symbols-rounded.imgBtn {
@@ -446,25 +459,32 @@ p {
   bottom: -0.1em;*/
 }
 
+.remove-from-cart > img,
+.add-to-cart > img {
+  width: 1.75em;
+  margin-top: 0.65em;
+  border-radius: 0;
+}
+
 .disabled {
-  background-color: #c2c2c2;
-  cursor: default;
+background-color: #c2c2c2;
+cursor: default;
 }
 
 @media (-webkit-device-pixel-ratio: 1.25) {
-  .cost-is-hovered {
-    left: 9.03em;
-  }
+.cost-is-hovered {
+left: 9.03em;
+}
 }
 
 .desc {
-  font-size: 0.5em;
+font-size: 0.5em;
 }
 /*.opened {
-  position: absolute;
-  max-width: 80%;
-  margin: 20em auto 20em auto;
-  vertical-align: center;
+position: absolute;
+max-width: 80%;
+margin: 20em auto 20em auto;
+vertical-align: center;
 }*/
 
 .material-symbols-outlined {

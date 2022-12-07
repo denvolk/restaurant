@@ -12,10 +12,14 @@
         <div class="weight">{{store.shownItem.weight}}</div>
       </div>
       <div class="close-btn">
-        <span class="material-symbols-outlined close" v-on:mouseenter="closingIsDisabled = !closingIsDisabled" v-on:mouseleave="closingIsDisabled = !closingIsDisabled"
-              v-on:click="closeItem">
-          close
-        </span>
+<!--        <span class="material-symbols-outlined close" v-on:mouseenter="closingIsDisabled = !closingIsDisabled" v-on:mouseleave="closingIsDisabled = !closingIsDisabled"-->
+<!--              v-on:click="closeItem">-->
+<!--          close-->
+<!--        </span>-->
+        <img class="close" src="https://raw.githubusercontent.com/denvolk/restaurant/gh-pages/assets/svg/close_FILL0_wght700_GRAD200_opsz48.svg"
+             v-on:mouseenter="closingIsDisabled = !closingIsDisabled" v-on:mouseleave="closingIsDisabled = !closingIsDisabled"
+             v-on:click="closeItem"
+        >
       </div>
     </div>
     <div class="item-data order-data" v-else
@@ -23,9 +27,12 @@
       <div class="user-data">
         <form class="form" novalidate="true" v-on:submit.prevent="submitForm" action="https://my-json-server.typicode.com/denvolk/restaurant-db/orders/" method="post">
           <div class="field user-name">
-            <span class="material-symbols-rounded err fname" v-show="!isDisabled['fNameErr']">
+            <!--<span class="material-symbols-rounded err fname" v-show="!isDisabled['fNameErr']">
               done
-            </span>
+            </span>-->
+            <img class="err fname" src="https://raw.githubusercontent.com/denvolk/restaurant/gh-pages/assets/svg/done_FILL0_wght100_GRAD200_opsz20.svg"
+                  v-show="!isDisabled['fNameErr']"
+            >
             <div class="input-container">
               <!--              <input type="text" name="firstname" id="firstname"-->
               <!--                     v-model="form.firstName" v-bind:placeholder="store.pageLanguages[currLang]['placeholders']['first-name']" autofocus-->
@@ -35,13 +42,18 @@
               >
               <label for="firstname">{{store.pageLanguages[currLang]['placeholders']['first-name']}}</label>
             </div>
-            <span class="material-symbols-rounded err lname" v-show="!isDisabled['lNameErr']">
+            <!--<span class="material-symbols-rounded err lname" v-show="!isDisabled['lNameErr']">
               done
-            </span>
+            </span>-->
+          </div>
+          <div class="field user-name">
+            <img class="err lname" src="https://raw.githubusercontent.com/denvolk/restaurant/gh-pages/assets/svg/done_FILL0_wght100_GRAD200_opsz20.svg"
+                 v-show="!isDisabled['lNameErr']"
+            >
             <div class="input-container">
-<!--              <input type="text" name="lastname" id="lastname"-->
-<!--                     v-model="form.lastName" v-bind:placeholder="store.pageLanguages[currLang]['placeholders']['last-name']"-->
-<!--              >-->
+              <!--              <input type="text" name="lastname" id="lastname"-->
+              <!--                     v-model="form.lastName" v-bind:placeholder="store.pageLanguages[currLang]['placeholders']['last-name']"-->
+              <!--              >-->
               <input type="text" name="lastname" id="lastname"
                      v-model="form.lastName" placeholder=" "
               >
@@ -49,9 +61,12 @@
             </div>
           </div>
           <div class="field email">
-            <span class="material-symbols-rounded err email-err" v-show="!isDisabled['emailErr']">
+            <!--<span class="material-symbols-rounded err email-err" v-show="!isDisabled['emailErr']">
               done
-            </span>
+            </span>-->
+            <img class="err email-err" src="https://raw.githubusercontent.com/denvolk/restaurant/gh-pages/assets/svg/done_FILL0_wght100_GRAD200_opsz20.svg"
+                 v-show="!isDisabled['emailErr']"
+            >
             <div class="input-container">
 <!--              <input type="email" name="email" id="email"-->
 <!--                     v-model="form.email" placeholder="example@gmail.com" autocomplete="on"-->
@@ -63,9 +78,12 @@
             </div>
           </div>
           <div class="field phone">
-            <span class="material-symbols-rounded err phone-err" v-show="!isDisabled['phoneErr']">
+            <!--<span class="material-symbols-rounded err phone-err" v-show="!isDisabled['phoneErr']">
               done
-            </span>
+            </span>-->
+            <img class="err phone-err" src="https://raw.githubusercontent.com/denvolk/restaurant/gh-pages/assets/svg/done_FILL0_wght100_GRAD200_opsz20.svg"
+                 v-show="!isDisabled['phoneErr']"
+            >
             <div class="input-container">
 <!--              <input type="text" name="phone" id="phone"-->
 <!--                     v-model="form.phone" v-bind:placeholder="store.pageLanguages[currLang]['placeholders']['phone-mask']"-->
@@ -159,10 +177,13 @@
         </div>
       </div>
       <div class="close-btn">
-        <span class="material-symbols-outlined close-order" v-on:mouseenter="closingIsDisabled = !closingIsDisabled" v-on:mouseleave="closingIsDisabled = !closingIsDisabled"
+        <!--<span class="material-symbols-outlined close-order" v-on:mouseenter="closingIsDisabled = !closingIsDisabled" v-on:mouseleave="closingIsDisabled = !closingIsDisabled"
               v-on:click="closeItem">
           close
-        </span>
+        </span>-->
+        <img src="https://raw.githubusercontent.com/denvolk/restaurant/gh-pages/assets/svg/close_FILL0_wght700_GRAD200_opsz48.svg"
+             v-on:mouseenter="closingIsDisabled = !closingIsDisabled" v-on:mouseleave="closingIsDisabled = !closingIsDisabled" v-on:click="closeItem"
+        >
       </div>
     </div>
   </div>
@@ -282,6 +303,7 @@ export default {
   methods:  {
 
     submitForm() {
+      console.log(`submitForm`);
       if (!this.isDisabled['fNameErr'] &&
           !this.isDisabled['lNameErr'] &&
           !this.isDisabled['emailErr'] &&
@@ -542,6 +564,10 @@ img {
   font-size: 1.25rem;
 }
 
+.err {
+  width: 1em;
+}
+
 .material-symbols-outlined {
   font-variation-settings: 'FILL' 0,
   'wght' 700,
@@ -549,16 +575,11 @@ img {
   'opsz' 48
 }
 
-.material-symbols-rounded.err {
-  font-variation-settings: 'FILL' 0,
-  'wght' 100,
-  'GRAD' 200,
-  'opsz' 20;
-
+.err {
   color: rgba(66, 185, 131, 1);
   position: absolute;
   right: 0;
-  top: 0.2em;
+  top: 0.7em;
   z-index: 999;
   /*left: -1.1em;*/
   /*top: 0.75em*/
@@ -600,10 +621,19 @@ textarea:focus-visible {
   border-radius: 2px;
 }
 
+.close-btn > img {
+  max-width: 1.5em;
+}
+
 .close {
   user-select: none;
   cursor: pointer;
-  margin-top: 0.75em;
+  margin-top: 1em;
+}
+
+.order-data > .close-btn > img {
+  margin-top: -0.5em;
+  cursor: pointer;
 }
 
 .close-order {

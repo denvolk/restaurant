@@ -9,6 +9,14 @@
     <!--<section class="logo">
       <img v-bind:src="logoPath" alt="logo.png">
     </section>-->
+    <section class="header-data">
+      <div class="header-phone-number">
+        +7 (XXX) XXX-XX-XX
+      </div>
+      <div class="header-address">
+        ул. Пушкина, д. 133, помещение 25
+      </div>
+    </section>
     <section class="rest-name">
       {{restName}}
     </section>
@@ -67,7 +75,7 @@ export default {
   data: function ()  {
     return{
       store,
-      logoPath: './assets/logo.svg',
+      // logoPath: './assets/logo.svg',
       menuName: 'Меню',
       restName: 'Пиццерия',
       menuBtnDisabled: true,
@@ -117,6 +125,7 @@ export default {
 
     async translatePage(lang) {
       console.log('translatePage');
+      store.translationFinished = false;
       if (lang === store.pageLang)  return;
 
       store.pageLang = lang;
@@ -127,6 +136,8 @@ export default {
       this.showLanguages = false;
 
       await this.repaintMenu();
+
+      store.translationFinished = true;
     },
 
     async repaintMenu()  {
@@ -152,10 +163,10 @@ export default {
           });
     },
 
-    setLogo(lang) {
-      console.log('lang=', lang);
-      this.logoPath = `../assets/restImg${lang}.png`;
-    },
+    // setLogo(lang) {
+    //   console.log('lang=', lang);
+    //   this.logoPath = `../assets/restImg${lang}.png`;
+    // },
 
     toggleMenu()  {
       this.store.menuOpened = !this.store.menuOpened;
@@ -227,6 +238,17 @@ export default {
     width: 100%;
     right: 0;
   }
+
+  .header-data {
+    display: flex;
+    flex-direction: column;
+    line-height: 2em;
+    margin-left: -68em;
+  }
+
+  //.header-phone-number, .header-address {
+  //  width: 20em;
+  //}
 
   .right {
     display: flex;

@@ -23,8 +23,11 @@ export const store = reactive({
         desc: '',
         weight: 0,
         img: '',
+        isOrder: false,
     },
     orderBtn: 'Оформить заказ',
     cartEmptyText: 'Корзина пуста',
     clearCartBtn: 'Очистить корзину',
+    translationFinished: false,
+    orderNumber: '',
 })

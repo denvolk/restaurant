@@ -91,6 +91,7 @@ export default {
 
       store.fullPageItem = true;
       store.itemOpened = true;
+      store.shownItem.isOrder = false;
       //document.getElementsByTagName('html')[0].classList.add("noscroll");
       //document.getElementsByTagName('html')[0].style.scroll = "no";
       //document.getElementsByTagName('html')[0].style['padding-right'] = "1em";

@@ -25,7 +25,7 @@
       <!----------------
       {{store.cartItems}}-->
     </div>
-    <div class="order-btn">
+    <div class="order-btn" v-bind:class="{disabled: !store.cartItems.length}" v-on:click="makeOrder">
       <div class="order-text">
         {{store.orderBtn}}
       </div>
@@ -78,6 +78,16 @@ export default {
   },
 
   methods:  {
+
+    makeOrder() {
+      if (!store.cartItems.length) return;
+
+      store.foodItem = true;
+      store.fullPageItem = true;
+      store.itemOpened = true;
+
+      store.shownItem.isOrder = true;
+    },
 
     clearCart() {
       store.cartItems = [];
@@ -250,6 +260,17 @@ button {
   padding: 0 0.75em;
   align-items: center;
   margin: 0.5em 0 0 0;
+  user-select: none;
+}
+
+.order-btn:hover {
+  background-color: rgba(66, 185, 131, 1);
+  cursor: pointer;
+}
+
+.order-btn.disabled:hover {
+  background-color: #c2c2c2;
+  cursor: default;
 }
 
 ::-webkit-scrollbar-track {

@@ -146,17 +146,18 @@ export default {
 
 @media (-webkit-device-pixel-ratio: 1.25) {
 
-  @media screen and (min-width: 1800px) {
+  @media screen and (min-width: 1500px) {
     .menuOpened {
-      margin-left: 19.5em;
+      margin-left: 15.5em;
     }
 
     .bothOpened {
-      margin-left: 18.75em;
+      margin-left: 14.5em;
+      margin-right: 18em;
     }
   }
 
-  @media screen and (min-width: 2500px) {
+  @media screen and (min-width: 2000px) {
     .menuOpened {
       margin-left: 16.25em;
     }

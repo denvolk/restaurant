@@ -1,8 +1,15 @@
 #!/usr/bin/env sh
+read -p "Build? Y/N: " VAR1
 # abort on errors
 set -e
 # build
-npm run build
+if [ "$VAR1" = "Y" ]; then
+  echo "build"
+  npm run build
+else
+  echo "dont build"
+fi
+#npm run build
 # navigate into the build output directory
 cd dist
 # if you are deploying to a custom domain

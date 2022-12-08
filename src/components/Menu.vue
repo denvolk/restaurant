@@ -36,7 +36,7 @@ export default {
           store.pageLang = tempCookieData.lang;
         }
         //fetch(`http://localhost:3000/foods${store.pageLang}`)
-        fetch(`https://my-json-server.typicode.com/denvolk/restaurant-db/foods${store.pageLang}`)
+        fetch(`https://my-json-server.typicode.com/denvolk/restaurant-test/foods${store.pageLang}`)
             .then((response) => response.json())
             .then((foods) => {
               console.log(foods);

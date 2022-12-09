@@ -1,4 +1,4 @@
-# Restaurant
+# Restaurant [\(Russian readme version\)](#russian_readme_anchor)
 
 <a id="live_version_anchor"></a>
 ## Live version:
@@ -57,3 +57,6 @@ all data for page text is stored in one "Data Base" (if using not more than 3 la
    + [Menu in transliterated Russian](https://github.com/denvolk/restaurant-test) (for testing) file db.json
 2. Page text:
    + [Page text in 3 languages](https://github.com/denvolk/restaurant-db) file db.json
+
+<a id="russian_readme_anchor"></a>
+#Ресторан

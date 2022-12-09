@@ -26,6 +26,7 @@ This website made using:
 2. BackEnd
    + [My JSON Server](https://my-json-server.typicode.com)
 
+<a id="front_info_anchor"></a>
 ## FrontEnd additional information
 This SPA made using Vue.js 2.6 with Vue Router  
 and vanilla store for State Managment  
@@ -39,6 +40,7 @@ All page text in different languages is stored in "Language Data Base"
 
 Shopping Cart data is stored locally in cookies using [vue-cookies](https://www.npmjs.com/package/vue-cookies) library
 
+<a id="back_info_anchor"></a>
 ## BackEnd additional information
 BackEnd is mocked using [json-server](https://www.npmjs.com/package/json-server)(local version) or  
 [My JSON Server](https://my-json-server.typicode.com)(public version) uploaded to [GitHub Pages](https://pages.github.com)  

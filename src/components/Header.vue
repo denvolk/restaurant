@@ -38,20 +38,25 @@
         <div class="curr-lang">
           {{store.pageLang.toUpperCase()}}
         </div>
-        <div class="languages">
+        <div class="languages" v-bind:class="{opened: showLanguages, 'more-than-two': store.pageLanguages.length === 3, 'more-then-three': store.pageLanguages.length > 3, 'even': store.pageLanguages.length > 3 && store.pageLanguages.length % 2 === 0}">
           <!--<span class="material-symbols-rounded" v-on:click="showLanguages = !showLanguages" v-if="showLanguages">
             expand_less
           </span>-->
           <img src="https://raw.githubusercontent.com/denvolk/restaurant/gh-pages/assets/svg/expand_less_FILL0_wght400_GRAD0_opsz48.svg"
-               v-on:click="showLanguages = !showLanguages" v-if="showLanguages"
+               v-on:click="showLanguages = !showLanguages" v-show="showLanguages"
           >
           <!--<span class="material-symbols-rounded" v-on:click="showLanguages = !showLanguages" v-else>
             expand_more
           </span>-->
           <img src="https://raw.githubusercontent.com/denvolk/restaurant/gh-pages/assets/svg/expand_more_FILL0_wght400_GRAD0_opsz48.svg"
-               v-on:click="showLanguages = !showLanguages" v-else
+               v-on:click="showLanguages = !showLanguages" v-show="!showLanguages"
           >
-          <div class="lang-select-btn" v-show="showLanguages" v-for="item in filteredPageLanguages" :key="item.id" v-bind:class="item.name" v-on:click="translatePage(item.name);">
+          <div class="languages-container" v-if="store.pageLanguages.length > 2">
+            <div class="lang-select-btn" v-show="showLanguages" v-for="item in filteredPageLanguages" :key="item.id" v-bind:class="item.name" v-on:click="translatePage(item.name);">
+              {{item.name.toString().toUpperCase()}}
+            </div>
+          </div>
+          <div v-else class="lang-select-btn" v-show="showLanguages" v-for="item in filteredPageLanguages" :key="item.id" v-bind:class="item.name" v-on:click="translatePage(item.name);">
             {{item.name.toString().toUpperCase()}}
           </div>
         </div>
@@ -299,9 +304,37 @@ export default {
     line-height: 3.5em;
   }
 
-  .lang-select-btn  {
+  .languages > .lang-select-btn,
+  .languages-container > .lang-select-btn {
     cursor: pointer;
     background-color: rgba(255, 255, 255, 0.8);
+  }
+
+  .languages > .lang-select-btn  {
+    border-bottom-left-radius: 0.5em;
+    border-bottom-right-radius: 0.5em;
+  }
+
+  .languages-container {
+    display: flex;
+    flex-direction: row;
+    width: 4.8em;
+    flex-wrap: wrap;
+  }
+
+  .languages-container > .lang-select-btn {
+    padding: 0 0.2em;
+    width: 2em;
+  }
+
+  .languages-container > .lang-select-btn:first-child {
+    border-bottom-left-radius: 0.5em;
+    border-bottom-right-radius: 0;
+  }
+
+  .languages-container > .lang-select-btn:last-child {
+    border-bottom-right-radius: 0.5em;
+    border-bottom-left-radius: 0;
   }
 
   .languages {
@@ -310,8 +343,49 @@ export default {
     flex-direction: column;
     user-select: none;
     cursor: pointer;
-    width: 2em;
+    //width: 2em;
     top: 2em;
+    left: 0;
+    width: 2em;
+  }
+
+  .languages > img {
+    width: 2em;
+    align-self: center;
+  }
+
+  .languages.opened {
+    left: 0;
+    width: 2em;
+  }
+
+  .languages.opened.more-than-two,
+  .languages.opened.more-then-three {
+    left: -24px;
+    width: 5em;
+  }
+
+  //.languages.opened.more-then-three {
+  //  left: -24px;
+  //  width: 5em;
+  //}
+
+  .languages.opened.more-then-three > .languages-container > .lang-select-btn:nth-last-child(2) {
+    border-bottom-left-radius: 0.5em;
+  }
+
+  //.languages.opened.more-then-three.even > .languages-container > .lang-select-btn:nth-last-child(2) {
+  //  border-bottom-left-radius: 0;
+  //}
+
+  .languages.opened.more-then-three.even > .languages-container > .lang-select-btn:last-child {
+    width: 4.5em;
+    border-bottom-left-radius: 0.5em;
+  }
+
+  .languages.opened.more-then-three > .languages-container > .lang-select-btn:first-child,
+  .languages.opened.more-then-three.even > .languages-container > .lang-select-btn:nth-last-child(2) {
+    border-bottom-left-radius: 0;
   }
 
    /*.material-symbols-rounded {

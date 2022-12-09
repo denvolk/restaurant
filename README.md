@@ -1,22 +1,22 @@
-# restaurant
+# Restaurant
 
+## Live version:
 https://denvolk.github.io/restaurant/
 
-## Project setup
-```
-npm install
-```
+## About
+Test website illustrating restaurant menu and delivery  
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+## Table of contents
+1. [Technologies](##technologies_anchor)
 
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
-"# restaurant" 
+<a id="technologies_anchor"></a>
+## Technologies
+This website made using:  
+1. FrontEnd
+   + Vue.js 2.6
+   + Vue Router
+   + Vue vanilla State Managment: store
+   + [vue-cookies](https://www.npmjs.com/package/vue-cookies) library
+   + HTML5, CSS3
+2. BackEnd
+   + [My JSON Server](https://my-json-server.typicode.com/)

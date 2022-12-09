@@ -67,7 +67,7 @@ all data for page text is stored in one "Data Base" (if using not more than 3 la
 https://denvolk.github.io/restaurant
 
 ## Описание
-Сайт имитирующий меню ресторана с возможностью доставки на разных языках  
+Сайт имитирующий меню ресторана на разных языках с возможностью доставки  
 
 ## Оглавление
 1. [Используемые технологии](#technologies_anchor_ru)

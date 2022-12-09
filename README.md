@@ -7,9 +7,7 @@ https://denvolk.github.io/restaurant/
 Test website illustrating restaurant menu and delivery  
 
 ## Table of contents
-<details open><summary>Click</summary>
-   1. [Technologies](#technologies_anchor)
-</details>
+1. [Technologies](##technologies_anchor)
 
 <a id="technologies_anchor"></a>
 ## Technologies

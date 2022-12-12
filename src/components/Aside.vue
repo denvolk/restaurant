@@ -1,9 +1,11 @@
 <template>
   <aside class="aside-menu" v-bind:class="{opened: store.menuOpened}">
     <div class="aside-menu-list">
-      <router-link v-for="(item, index) in store.foods" :key="item.name"
-                   :to="{name: 'foodSection', hash:'#'+store.foods[index].hash}">
-        {{item.name}}
+      <router-link :to="{name: 'foodSection', hash:'#'+store.foods[index].hash}" :key="item.name" class="aside-menu-item" v-for="(item, index) in store.foods">
+        <div>
+          {{item.name}}
+        </div>
+        <img class="aside-menu-img" v-bind:src="`../assets/foods/icons/${item.hash}.svg`">
       </router-link>
     </div>
     <!--<div class="aside-menu">
@@ -19,9 +21,21 @@ export default {
 
   data: function () {
     return{
-      store
+      store,
+      img: '',
     }
-  }
+  },
+
+  methods: {
+    imgPath()  {
+      //this.img = `https://raw.githubusercontent.com/denvolk/restaurant/gh-pages/assets/foods/${this.img}.webp` //gh-pages
+      this.img =  `../assets/foods/icons/${this.id}.png`;  //localhost
+    },
+  },
+
+  mounted() {
+    this.imgPath();
+  },
 }
 </script>
 
@@ -29,7 +43,7 @@ export default {
 Aside {
   display: none;
   height: 100%;
-  padding: 0.5em 1.5em 1em 1.5em;
+  padding: 0.5em 0.5em 0.5em 0.5em;
 }
 ul  {
   padding-left: 0;
@@ -58,7 +72,7 @@ ul  {
   /*top: 4em;*/
   top: 0;
   margin: 4em 0 0 0;
-  min-width: 10em;
+  width: 16.25em;
   /*height: 91vh;*/
   /* margin-top: 1em; */
   box-shadow: 0 8px 20px hsl(40deg 3% 45% / 20%);
@@ -78,15 +92,15 @@ a{
   text-align: left;
   text-decoration-line: none;
   color: white;*/
-  margin: 0.25em;
+  /*margin: 0.25em;*/
   text-align: left;
   text-decoration-line: none;
   color: #000;
-  padding: 0.25em 0.25em 0.25em 0.25em;
+  /*padding: 0.25em 0.25em 0.25em 0.25em;*/
 }
 a:hover {
-  background-color: #c2c2c2;
-  border-radius: 0.25em;
+  /*background-color: #c2c2c2;*/
+  /*border-radius: 0.25em;*/
 }
 a:active  {
   /*background-color: #ef0a0a;*/
@@ -95,5 +109,32 @@ a:active  {
 }
 a:visited {
   color: #000;
+}
+
+.aside-menu-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 0.5em;
+  padding: 0.25em;
+  font-size: 2rem;
+}
+
+.aside-menu-item:hover {
+  background-color: #c2c2c2;
+  border-radius: 0.25em;
+}
+
+.aside-menu-item:active {
+  background-color: rgba(66, 185, 131, 1);
+}
+
+.aside-menu-item > img {
+  width: 2.5rem;
+  transition: 0.25s ease-in;
+}
+
+.aside-menu-item:hover > img {
+  transform: rotate(10deg);
 }
 </style>

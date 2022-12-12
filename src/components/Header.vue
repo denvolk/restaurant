@@ -34,7 +34,7 @@
         </div>
         <!--<img id="cart-logo" src="" alt="cart.png">-->
       </section>
-      <section class="lang-select" v-if="store.pageLanguages.length > 1">
+      <section class="lang-select" v-if="store.pageLanguages.length > 1" v-on:mouseenter="showLanguages = true" v-on:mouseleave="showLanguages = false">
         <div class="curr-lang">
           {{store.pageLang.toUpperCase()}}
         </div>
@@ -43,13 +43,13 @@
             expand_less
           </span>-->
           <img src="https://raw.githubusercontent.com/denvolk/restaurant/gh-pages/assets/svg/expand_less_FILL0_wght400_GRAD0_opsz48.svg"
-               v-on:click="showLanguages = !showLanguages" v-show="showLanguages"
+               v-show="showLanguages"
           >
           <!--<span class="material-symbols-rounded" v-on:click="showLanguages = !showLanguages" v-else>
             expand_more
           </span>-->
           <img src="https://raw.githubusercontent.com/denvolk/restaurant/gh-pages/assets/svg/expand_more_FILL0_wght400_GRAD0_opsz48.svg"
-               v-on:click="showLanguages = !showLanguages" v-show="!showLanguages"
+               v-show="!showLanguages"
           >
           <div class="languages-container" v-if="store.pageLanguages.length > 2">
             <div class="lang-select-btn" v-show="showLanguages" v-for="item in filteredPageLanguages" :key="item.id" v-bind:class="item.name" v-on:click="translatePage(item.name);">
@@ -259,15 +259,19 @@ export default {
     right: 0;
   }
 
+  .header-data {
+    left: 17.25em;
+  }
+
   @media (-webkit-device-pixel-ratio: 1.25) {
     .header-data {
-      left: 14%;
+      //left: 14%;
     }
   }
 
   @media (-webkit-device-pixel-ratio: 1.0) {
     .header-data {
-      left: 11%;
+      //left: 17.25em;
     }
   }
 
@@ -320,6 +324,7 @@ export default {
     flex-direction: row;
     width: 4.8em;
     flex-wrap: wrap;
+    box-shadow: 0 8px 20px rgb(117 115 111 / 20%);
   }
 
   .languages-container > .lang-select-btn {

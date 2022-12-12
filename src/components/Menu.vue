@@ -148,23 +148,23 @@ export default {
 
   @media screen and (min-width: 1500px) {
     .menuOpened {
-      margin-left: 15.5em;
+      margin-left: 21.75em;
     }
 
     .bothOpened {
-      margin-left: 14.5em;
-      margin-right: 18em;
+      margin-left: 20.75em;
+      margin-right: 20.5em;
     }
   }
 
   @media screen and (min-width: 2000px) {
     .menuOpened {
-      margin-left: 16.25em;
+      margin-left: 25.75em;
     }
 
     .bothOpened {
-      margin-left: 15.5em;
-      margin-right: 19em;
+      margin-left: 25.25em;
+      margin-right: 24.75em;
     }
   }
 }
@@ -173,21 +173,22 @@ export default {
 
   @media screen and (min-width: 1800px) {
     .menuOpened {
-      margin-left: 18em;
+      margin-left: 20em;
     }
 
     .bothOpened {
-      margin-left: 17.25em;
+      margin-left: 19.25em;
+      margin-right: 19.25em;
     }
   }
 
   @media screen and (min-width: 2500px) {
     .menuOpened {
-      margin-left: 22em;
+      margin-left: 23.5em;
     }
 
     .bothOpened {
-      margin-left: 21.25em;
+      margin-left: 23.25em;
     }
   }
 }

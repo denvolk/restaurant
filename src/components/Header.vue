@@ -261,6 +261,10 @@ export default {
 
   .header-data {
     left: 17.25em;
+    position: fixed;
+    line-height: 1.3em;
+    text-align: left;
+    padding: 11px;
   }
 
   @media (-webkit-device-pixel-ratio: 1.25) {
@@ -273,17 +277,6 @@ export default {
     .header-data {
       //left: 17.25em;
     }
-  }
-
-  .header-data {
-    //display: flex;
-    //flex-direction: column;
-    //line-height: 2em;
-    //margin-left: -68em;
-    //text-align: left;
-    position: fixed;
-    line-height: 2em;
-    text-align: left;
   }
 
   //.header-phone-number, .header-address {
@@ -315,8 +308,10 @@ export default {
   }
 
   .languages > .lang-select-btn  {
-    border-bottom-left-radius: 0.5em;
-    border-bottom-right-radius: 0.5em;
+    //border-bottom-left-radius: 0.5em;
+    //border-bottom-right-radius: 0.5em;
+    border-bottom-left-radius: 0.25em;
+    border-bottom-right-radius: 0.25em;
   }
 
   .languages-container {
@@ -333,12 +328,16 @@ export default {
   }
 
   .languages-container > .lang-select-btn:first-child {
-    border-bottom-left-radius: 0.5em;
+    //border-bottom-left-radius: 0.5em;
+    //border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0.25em;
     border-bottom-right-radius: 0;
   }
 
   .languages-container > .lang-select-btn:last-child {
-    border-bottom-right-radius: 0.5em;
+    //border-bottom-right-radius: 0.5em;
+    //border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0.25em;
     border-bottom-left-radius: 0;
   }
 
@@ -376,7 +375,8 @@ export default {
   //}
 
   .languages.opened.more-then-three > .languages-container > .lang-select-btn:nth-last-child(2) {
-    border-bottom-left-radius: 0.5em;
+    //border-bottom-left-radius: 0.5em;
+    border-bottom-left-radius: 0.25em;
   }
 
   //.languages.opened.more-then-three.even > .languages-container > .lang-select-btn:nth-last-child(2) {
@@ -385,7 +385,8 @@ export default {
 
   .languages.opened.more-then-three.even > .languages-container > .lang-select-btn:last-child {
     width: 4.5em;
-    border-bottom-left-radius: 0.5em;
+    //border-bottom-left-radius: 0.5em;
+    border-bottom-left-radius: 0.25em;
   }
 
   .languages.opened.more-then-three > .languages-container > .lang-select-btn:first-child,

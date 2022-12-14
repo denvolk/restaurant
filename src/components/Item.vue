@@ -397,12 +397,13 @@ export default {
   /* justify-content: space-between; */
   background-color: #fff;
   /*border: 3px solid black;*/
-  border-radius: 1em;
+  border-radius: 0.75em;
   /*padding: 0 1em;*/
   padding-right: 1em;
   width: 46em;
   height: 20em;
   box-shadow: 0 0 10px;
+  overflow: hidden;
 }
 
 .order-data {

@@ -302,7 +302,8 @@ export default {
   position: relative;
   margin: 1em 0.8em 1em 0.8em;
   border: 2px solid rgba(0, 0, 0, 0.35);
-  border-radius: 1em;
+  /*border-radius: 1em;*/
+  border-radius: 0.75em;
   background-color: #fff;
   width: 9em;
   height: 13.5em;
@@ -333,10 +334,12 @@ export default {
 
 img {
   max-width: 8em;
-  border-radius: 1em;
+  /*border-radius: 1em;*/
+  border-radius: 0.5em;
   /*border: 1px solid black;*/
   /*position: relative;*/
   user-select: none;
+  box-shadow: 0 0 20px hsl(40deg 3% 45% / 20%);
 }
 
 .svg-container {
@@ -410,7 +413,7 @@ p {
   /*position: absolute;*/
   visibility: hidden;
   /*opacity: 0;*/
-  background-color: rgba(66, 185, 131, 1);
+  background-color: rgba(66, 185, 131, 0.85);
   height: 3em;
   width: 3em;
   line-height: 0.9em;
@@ -429,7 +432,7 @@ p {
   /*position: absolute;*/
   visibility: hidden;
   /*opacity: 0;*/
-  background-color: rgba(66, 185, 131, 1);
+  background-color: rgba(66, 185, 131, 0.85);
   height: 3em;
   width: 3em;
   line-height: 0.9em;
@@ -469,6 +472,7 @@ p {
 .disabled {
 background-color: #c2c2c2;
 cursor: default;
+  opacity: 0.85;
 }
 
 @media (-webkit-device-pixel-ratio: 1.25) {

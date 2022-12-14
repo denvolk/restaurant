@@ -5,7 +5,7 @@
         <div>
           {{item.name}}
         </div>
-        <img class="aside-menu-img" v-bind:src="`../assets/foods/icons/${item.hash}.svg`">
+        <img class="aside-menu-img" v-bind:src="`https://raw.githubusercontent.com/denvolk/restaurant/gh-pages/assets/foods/icons/${item.hash}.svg`">
       </router-link>
     </div>
     <!--<div class="aside-menu">
@@ -118,11 +118,13 @@ a:visited {
   margin-bottom: 0.5em;
   padding: 0.25em;
   font-size: 2rem;
+  border-left: 3px solid transparent;
 }
 
 .aside-menu-item:hover {
   background-color: #c2c2c2;
-  border-radius: 0.25em;
+  border-radius: 0.125em;
+  border-left: 3px solid darkorange;
 }
 
 .aside-menu-item:active {
@@ -130,7 +132,7 @@ a:visited {
 }
 
 .aside-menu-item > img {
-  width: 2.5rem;
+  width: 2rem;
   transition: 0.25s ease-in;
 }
 

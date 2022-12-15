@@ -7,6 +7,17 @@
       <span>{{x}}</span>
     </div>-->
     <!--<router-view/>-->
+    <div class="yandex-map-container" v-show="store.mapIsOpened" v-on:click="closeMap">
+      <div class="map-img-container" v-on:mouseenter="closingDisabled = true" v-on:mouseleave="closingDisabled = false">
+<!--        <img src="https://static-maps.yandex.ru/1.x/?ll=30.20170170632518,59.988578443034804&spn=0.002,0.002&size=650,450&l=map&pt=30.20170170632518,59.988578443034804,round100" alt="yandex static map">-->
+<!--        <img v-bind:src="`https://static-maps.yandex.ru/1.x/?ll=30.20170170632518,59.988578443034804&spn=0.002,0.002&size=650,450&l=map&pt=30.20170170632518,59.988578443034804,round100&lang=${mapLang}`">-->
+        <img v-bind:src="`${mapLang}`" v-bind:alt="`${mapLang}`">
+        <span v-if="store.pageLanguages.length > 0" class="map-text">{{store.pageLanguages[currLang]['restaurant-address']}}</span>
+      </div>
+<!--      <div class="address-data-map">-->
+<!--        <div class="hole"></div>-->
+<!--      </div>-->
+    </div>
   </div>
 </template>
 
@@ -30,6 +41,7 @@ export default {
     return{
       x: '',
       store,
+      closingDisabled: false,
     }
   },
 
@@ -43,7 +55,33 @@ export default {
     //document.querySelector("meta[name=viewport]").setAttribute('content', 'width=device-width, initial-scale='+(1/window.devicePixelRatio)+', maximum-scale=1.0, user-scalable=0');
   },
 
+  computed: {
+
+    currLang() {
+      if (!store.pageLanguages)
+        return -1;
+
+      let index = store.pageLanguages.findIndex(x => x.name === store.pageLang);
+      if (index === -1)
+        return;
+
+      return index;
+    },
+
+    mapLang() {
+      if (store.pageLang === 'ru')
+        return 'ru_RU'
+
+      return 'en_RU';
+    },
+  },
+
   methods:  {
+
+    closeMap() {
+      if (!this.closingDisabled)
+        store.mapIsOpened = false;
+    },
 
     checkCookieExist() {
       store.cookieExists = this.$cookies.isKey("denvolkpizza");
@@ -196,6 +234,63 @@ body  {
 
 .itemOpened {
   overflow-y: hidden;
+}
+
+.yandex-map-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0,0,0,.4);
+  width: 100%;
+  /* height: 100%; */
+  height: 101vh;
+  z-index: 99;
+}
+
+.yandex-map-container > img {
+  transform: translateY(50%);
+}
+
+.address-data-map {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -85%);
+  width: 100px;
+  height: 100px;
+  border: 2px solid rgba(0, 0, 0, 0.1);
+  background-color: white;
+  mix-blend-mode: hard-light;
+  z-index: 100;
+}
+
+.hole {
+  width: 20px;
+  height: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background-color: grey;
+}
+
+.map-text {
+  visibility: hidden;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -160%);
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 0.5em;
+  border-radius: 0.25em;
+  z-index: 100;
+}
+
+.map-img-container {
+  transform: translate(100%, 50%);
+  width: 650px;
+}
+
+.map-img-container:hover .map-text {
+  visibility: visible;
 }
 
 /* width */

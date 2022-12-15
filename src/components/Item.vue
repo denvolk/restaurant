@@ -37,7 +37,7 @@
               <!--              <input type="text" name="firstname" id="firstname"-->
               <!--                     v-model="form.firstName" v-bind:placeholder="store.pageLanguages[currLang]['placeholders']['first-name']" autofocus-->
               <!--              >-->
-              <input type="text" name="firstname" id="firstname"
+              <input type="text" name="firstname" id="firstname" v-bind:class="{error: isDisabled['fNameErr']}"
                      v-model="form.firstName" placeholder=" " autofocus
               >
               <label for="firstname">{{store.pageLanguages[currLang]['placeholders']['first-name']}}</label>
@@ -54,7 +54,7 @@
               <!--              <input type="text" name="lastname" id="lastname"-->
               <!--                     v-model="form.lastName" v-bind:placeholder="store.pageLanguages[currLang]['placeholders']['last-name']"-->
               <!--              >-->
-              <input type="text" name="lastname" id="lastname"
+              <input type="text" name="lastname" id="lastname" v-bind:class="{error: isDisabled['lNameErr']}"
                      v-model="form.lastName" placeholder=" "
               >
               <label for="lastname">{{store.pageLanguages[currLang]['placeholders']['last-name']}}</label>
@@ -71,7 +71,7 @@
 <!--              <input type="email" name="email" id="email"-->
 <!--                     v-model="form.email" placeholder="example@gmail.com" autocomplete="on"-->
 <!--              >-->
-              <input type="email" name="email" id="email"
+              <input type="email" name="email" id="email" v-bind:class="{error: isDisabled['emailErr']}"
                      v-model="form.email" autocomplete="on" placeholder=" "
               >
               <label for="email">Email</label>
@@ -88,7 +88,7 @@
 <!--              <input type="text" name="phone" id="phone"-->
 <!--                     v-model="form.phone" v-bind:placeholder="store.pageLanguages[currLang]['placeholders']['phone-mask']"-->
 <!--              >-->
-              <input type="text" name="phone" id="phone"
+              <input type="text" name="phone" id="phone" v-bind:class="{error: isDisabled['phoneErr']}"
                      v-model="form.phone" placeholder=" "
               >
               <label for="phone">{{store.pageLanguages[currLang]['placeholders']['phone']}}</label>
@@ -607,6 +607,15 @@ img {
   border: 1px solid rgba(66, 185, 131, 1);
 }
 
+#address {
+  color: red;
+  caret-color: #000;
+}
+
+#address.addressCorrect {
+  color: #000;
+}
+
 textarea {
   border: 1px solid black;
   border-radius: 2px;
@@ -679,12 +688,20 @@ textarea:focus-visible {
   padding:8px 0 3px 0;
   font-size:1em;
   color:#000;
+  caret-color: #000;
+}
+.input-container > input.error {
+  color: red;
 }
 .input-container input:focus{
   border:none;
   outline:none;
   border-bottom:1px solid #e74c3c;
 }
+
+/*input:-internal-autofill-selected {*/
+/*  color: red !important;*/
+/*}*/
 
 /*.input-container input:focus ~ label,*/
 /*.input-container input:valid ~ label{*/
@@ -717,6 +734,15 @@ input:-webkit-autofill:focus
   font-size:1em;
   /*-webkit-box-shadow: 0 0 0px 1000px #000 inset;*/
   transition: background-color 5000s ease-in-out 0s;
+  -webkit-text-fill-color: #000;
+  color: #000;
+}
+
+input:-webkit-autofill.error,
+input:-webkit-autofill:hover.error,
+input:-webkit-autofill:focus.error {
+  -webkit-text-fill-color: red;
+  color: red;
 }
 
 textarea {

@@ -30,4 +30,5 @@ export const store = reactive({
     clearCartBtn: 'Очистить корзину',
     translationFinished: false,
     orderNumber: '',
+    mapIsOpened: false,
 })

@@ -238,7 +238,7 @@ button {
 .empty-cart-btn {
   user-select: none;
   cursor: pointer;
-  width: 15.25em;
+  width: 15.5em;
   /*margin-left: 0.25em;*/
   margin-top: 0.25em;
   border-radius: 0.25em;

@@ -10,10 +10,10 @@
       <img v-bind:src="logoPath" alt="logo.png">
     </section>-->
     <section class="header-data">
-      <div class="header-phone-number">
-        +7 (XXX) XXX-XX-XX
+      <div class="header-phone-number" v-on:click="copyPhone">
+        {{headerPhone}}
       </div>
-      <div class="header-address" v-if="store.pageLanguages.length">
+      <div class="header-address" v-if="store.pageLanguages.length" v-on:click="store.mapIsOpened = true">
         {{store.pageLanguages[currLang]['restaurant-address']}}
       </div>
     </section>
@@ -93,6 +93,7 @@ export default {
       menuBtnDisabled: true,
       menu: [],
       showLanguages: false,
+      headerPhone: '+7 (XXX) XXX-XX-XX',
     }
   },
 
@@ -126,6 +127,11 @@ export default {
   },
 
   methods:  {
+
+    async copyPhone() {
+      console.log(this.headerPhone);
+      await navigator.clipboard.writeText(this.headerPhone);
+    },
 
     async getLanguages()  {
       //fetch(`http://localhost:3000/langs`)
@@ -283,6 +289,15 @@ export default {
   //  width: 20em;
   //}
 
+  .header-address {
+
+  }
+
+  .header-address:hover {
+    color: rgba(50, 205, 50, 1);
+    cursor: pointer;
+  }
+
   .right {
     display: flex;
     flex-direction: row;
@@ -304,7 +319,7 @@ export default {
   .languages > .lang-select-btn,
   .languages-container > .lang-select-btn {
     cursor: pointer;
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color: rgba(255, 255, 255, 0.9);
   }
 
   .languages > .lang-select-btn  {

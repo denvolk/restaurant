@@ -285,7 +285,7 @@ px
 
 .amount-text {
   align-self: center;
-  width: 1em;
+  width: 1.25em;
 }
 
 button {

@@ -163,10 +163,18 @@ export default {
 
 <style scoped>
 .aside-cart {
-  display: none;
-  height: 100%;
-  padding: 0.5em 0.5em 0.5em 0.5em;
-  /*overflow-x: hidden;*/
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  padding: 0.5em 0 0.5em 0;
+  margin: 4em 0 0 0;
+  width: 0;
+  top: 0;
+  right: 0;
+  height: calc(100vh - 80px);
+  box-shadow: 0 8px 20px hsl(40deg 3% 45% / 20%);
+  background-color: rgba(255, 255, 255, 0.8);
+  transition: width 0.125s ease-in-out;
 }
 
 /*.opened {
@@ -182,18 +190,8 @@ export default {
 }*/
 
 .opened {
-  display: flex;
-  flex-direction: column;
-  position: fixed;
-  top: 0;
   width: 16.25em;
-  /*padding: 4em 0 0 0;*/
-  margin: 4em 0 0 0;
-  height: 100vh;
-  height: calc(100vh - 80px);
-  box-shadow: 0 8px 20px hsl(40deg 3% 45% / 20%);
-  right: 0;
-  background-color: rgba(255, 255, 255, 0.8);
+  padding: 0.5em;
 }
 
 @media (-webkit-device-pixel-ratio: 1.25) {
@@ -220,6 +218,7 @@ export default {
   /*overflow: auto;*/
   overflow-y: scroll;
   flex-grow: 1;
+  overflow-x: hidden;
 }
 
 button {
@@ -261,6 +260,14 @@ button {
   align-items: center;
   margin: 0.5em 0 0 0;
   user-select: none;
+}
+
+.order-btn.disabled .order-text {
+  opacity: 0.5;
+}
+
+.order-btn.disabled .full-cost {
+  opacity: 0.5;
 }
 
 .order-btn:hover {

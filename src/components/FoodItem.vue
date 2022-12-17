@@ -332,7 +332,7 @@ export default {
   /*padding: 0.25em 0.25em 0 0.25em;*/
 }
 
-img {
+.img-container img {
   max-width: 8em;
   /*border-radius: 1em;*/
   border-radius: 0.5em;
@@ -534,6 +534,7 @@ vertical-align: center;
   -webkit-user-select: none;
   -moz-user-select: none;
   user-select: none;
+  box-shadow: 0 0 10px hsl(40deg 3% 45% / 20%);
 }
 
 @media (-webkit-device-pixel-ratio: 1.25) {
@@ -548,7 +549,7 @@ vertical-align: center;
   width: 80px;
   height: 80px;
   align-self: center;
-  margin-top: 2em;
+  margin: 2em;
 }
 .lds-hourglass:after {
   content: " ";

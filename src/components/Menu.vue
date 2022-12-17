@@ -78,6 +78,7 @@ export default {
   width: 100%;
   margin-top: 4em;
   margin-left: 17.75em;
+  transition: all 0.25s ease-in-out;
 }
 
 /*@media (-webkit-device-pixel-ratio: 1.25) {*/

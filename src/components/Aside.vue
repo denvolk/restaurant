@@ -6,6 +6,7 @@
           {{item.name}}
         </div>
         <img class="aside-menu-img" v-bind:src="`https://raw.githubusercontent.com/denvolk/restaurant/gh-pages/assets/foods/icons/${item.hash}.svg`">
+<!--        <img class="aside-menu-img" v-bind:src="`/assets/foods/icons/${item.hash}.svg`">-->
       </router-link>
     </div>
     <!--<div class="aside-menu">
@@ -113,18 +114,20 @@ a:visited {
 
 .aside-menu-item {
   display: flex;
-  flex-direction: row;
+  flex-direction: row-reverse;
   justify-content: space-between;
   margin-bottom: 0.5em;
   padding: 0.25em;
   font-size: 2rem;
   border-left: 3px solid transparent;
+  border-right: 3px solid transparent;
 }
 
 .aside-menu-item:hover {
   background-color: #c2c2c2;
   border-radius: 0.125em;
   border-left: 3px solid darkorange;
+  border-right: 3px solid darkorange;
 }
 
 .aside-menu-item:active {

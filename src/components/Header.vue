@@ -10,11 +10,30 @@
       <img v-bind:src="logoPath" alt="logo.png">
     </section>-->
     <section class="header-data">
-      <div class="header-phone-number" v-on:click="copyPhone">
+      <div class="header-phone-number">
         {{headerPhone}}
+<!--        <img class="copy-btn" src="/assets/svg/content_copy_FILL0_wght300_GRAD0_opsz20.svg"  v-on:click="copyText('phone')">-->
+<!--        <span class="copy-text" v-show="isCopied">Скопировано</span>-->
+<!--        <img class="copy-ready" v-bind:class="{visible: isCopiedPhone}" src="/assets/svg/done_FILL0_wght100_GRAD200_opsz20.svg">-->
+        <img class="copy-btn" src="https://raw.githubusercontent.com/denvolk/restaurant/gh-pages/assets/svg/content_copy_FILL0_wght300_GRAD0_opsz20.svg"
+             v-on:click="copyText('phone')" alt="google material icon copy"
+        >
+        <img class="copy-ready" v-bind:class="{visible: isCopiedPhone}"
+             src="https://raw.githubusercontent.com/denvolk/restaurant/gh-pages/assets/svg/done_FILL0_wght100_GRAD200_opsz20.svg"
+             alt="google material icon ready"
+        >
       </div>
-      <div class="header-address" v-if="store.pageLanguages.length" v-on:click="store.mapIsOpened = true">
-        {{store.pageLanguages[currLang]['restaurant-address']}}
+      <div class="header-address" v-if="store.pageLanguages.length">
+        <span class="header-address-text" v-on:click="store.mapIsOpened = true">{{store.pageLanguages[currLang]['restaurant-address']}}</span>
+<!--        <img class="copy-btn" src="/assets/svg/content_copy_FILL0_wght300_GRAD0_opsz20.svg"  v-on:click="copyText('address')">-->
+<!--        <img class="copy-ready" v-bind:class="{visible: isCopiedAddress}" src="/assets/svg/done_FILL0_wght100_GRAD200_opsz20.svg">-->
+        <img class="copy-btn" src="https://raw.githubusercontent.com/denvolk/restaurant/gh-pages/assets/svg/content_copy_FILL0_wght300_GRAD0_opsz20.svg"
+             v-on:click="copyText('address')" alt="google material icon copy"
+        >
+        <img class="copy-ready" v-bind:class="{visible: isCopiedAddress}"
+              src="https://raw.githubusercontent.com/denvolk/restaurant/gh-pages/assets/svg/done_FILL0_wght100_GRAD200_opsz20.svg"
+             alt="google material icon ready"
+        >
       </div>
     </section>
     <section class="rest-name">
@@ -94,6 +113,8 @@ export default {
       menu: [],
       showLanguages: false,
       headerPhone: '+7 (XXX) XXX-XX-XX',
+      isCopiedPhone: false,
+      isCopiedAddress: false,
     }
   },
 
@@ -128,9 +149,51 @@ export default {
 
   methods:  {
 
+    async toggleIsCopied(item) {
+      if (item === 'address') {
+
+        this.isCopiedAddress = true;
+
+        setTimeout(() => {
+          this.isCopiedAddress = false;
+        }, 500);
+
+        return;
+      }
+
+      if (item === 'phone') {
+
+        this.isCopiedPhone = true;
+
+        setTimeout(() => {
+          this.isCopiedPhone = false;
+        }, 500);
+
+        return;
+      }
+    },
+
+    async copyText(item) {
+
+      if (item === 'address') {
+        console.log(`address: ${store.pageLanguages[this.currLang]['restaurant-address']}`);
+        await navigator.clipboard.writeText(store.pageLanguages[this.currLang]['restaurant-address']);
+        await this.toggleIsCopied(item);
+        return;
+      }
+
+      if (item === 'phone') {
+        console.log(`phone: ${this.headerPhone}`);
+        await navigator.clipboard.writeText(this.headerPhone);
+        await this.toggleIsCopied(item);
+        return;
+      }
+    },
+
     async copyPhone() {
       console.log(this.headerPhone);
       await navigator.clipboard.writeText(this.headerPhone);
+      await this.toggleIsCopied();
     },
 
     async getLanguages()  {
@@ -168,7 +231,7 @@ export default {
 
     async repaintMenu()  {
       //fetch(`http://localhost:3000/foods${store.pageLang}`)
-      fetch(`https://my-json-server.typicode.com/denvolk/restaurant-test/foods${store.pageLang}`)
+      fetch(`https://my-json-server.typicode.com/denvolk/restaurantdb${store.pageLang}/foods${store.pageLang}`)
           .then((response) => response.json())
           .then((foods) => {
             console.log(foods);
@@ -294,6 +357,11 @@ export default {
   }
 
   .header-address:hover {
+    //color: rgba(50, 205, 50, 1);
+    //cursor: pointer;
+  }
+
+  .header-address-text:hover {
     color: rgba(50, 205, 50, 1);
     cursor: pointer;
   }
@@ -524,5 +592,45 @@ export default {
 hr {
   margin: 0.75em;
   border-width: 2px;
+}
+
+.copy-btn {
+  visibility: hidden;
+  transition: visibility 0.25s ease-in-out;
+}
+
+  .header-phone-number:hover .copy-btn {
+    visibility: visible;
+  }
+
+  .header-address:hover .copy-btn {
+    visibility: visible;
+  }
+
+.copy-btn {
+  margin-bottom: 0.15em;
+}
+
+.copy-btn:hover {
+  background-color: #c2c2c2;
+  border-radius: 0.25em;
+}
+
+.copy-btn:active {
+  background-color: rgba(66, 185, 131, 1);
+}
+
+.copy-ready {
+  height: 1.25em;
+  margin-bottom: 0.15em;
+  visibility: hidden;
+}
+
+.header-address > .copy-btn {
+  margin: 0 0 0.15em 0.25em;
+}
+
+.visible {
+  visibility: visible;
 }
 </style>

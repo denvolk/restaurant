@@ -355,6 +355,7 @@ export default {
   cursor: pointer;
   height: 1em;
   line-height: 1.2em;
+  box-shadow: 0 0 10px hsl(40deg 3% 45% / 20%);
 }
 
 .svg-container:hover > img {

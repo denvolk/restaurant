@@ -120,7 +120,7 @@
             </div>
           </div>
           <div class="field submit">
-            <button v-bind:class="{disabled: userInfoNotFilled}">{{store.pageLanguages[currLang]['order-btn']}}</button>
+            <button v-bind:class="{disabled: userInfoNotFilled}" v-bind:disabled="userInfoNotFilled"><span>{{store.pageLanguages[currLang]['order-btn']}}</span></button>
           </div>
 <!--          <input type="text" id="firstname" v-bind:placeholder="store.pageLanguages[currLang]['placeholders']['first-name']" required autofocus>-->
 <!--          <label for="firstname">{{store.pageLanguages[currLang]['placeholders']['first-name']}}</label>-->
@@ -749,6 +749,10 @@ textarea {
   font-family: Rubik, sans-serif;
   font-size: 1em;
   width: 24em;
+}
+
+.disabled > span{
+  opacity: 0.5;
 }
 
 @media (-webkit-device-pixel-ratio: 1.25) {
